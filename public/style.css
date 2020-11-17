@@ -1,0 +1,45 @@
+:root {
+    --color-bg: #282c34;
+    --color-fg: #ffffff;
+    --color-primary: rebeccapurple;
+}
+
+body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: monospace;
+    margin: 0;
+    padding: 16px 32px;
+}
+
+.btn {
+    background: var(--color-bg);
+    cursor: pointer;
+    color: var(--color-fg);
+    font-size: 24px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow:
+        0 0 8px 4px var(--color-primary),
+        inset 0 0 4px 2px var(--color-primary);
+}
+
+.btn:hover, .btn:focus, .btn:active {
+    box-shadow:
+        0 0 6px 6px var(--color-primary),
+        inset 0 0 4px 4px var(--color-primary);
+}
+
+/* Absolutely positions the element in the center of the screen. */
+.float-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
