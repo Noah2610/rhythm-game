@@ -7,6 +7,7 @@
  */
 #game {
     --beat-target-size: 120px;
+    --beat-size: 80px;
 
     position: relative;
 }
@@ -39,9 +40,75 @@
     width: var(--beat-target-size);
     height: var(--beat-target-size);
     line-height: var(--beat-target-size);
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    box-shadow: 0 0 16px 16px rgba(0, 0, 0, 0.5);
     text-align: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 16px 16px rgba(0, 0, 0, 0.5);
     text-shadow: 0px 0px 12px;
+}
+
+/**
+ * A beat is what falls from the top of the screen
+ * onto the beat-targets.
+ */
+.beat {
+    position: absolute;
+    display: inline-block;
+    font-size: 64px;
+    color: var(--color-fg);
+    width: var(--beat-size);
+    height: var(--beat-size);
+    line-height: var(--beat-size);
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -16px 14px 10px rgba(0, 0, 0, 0.3);
+    /* text-shadow: 0px -8px 12px; */
+
+    animation: beatFall 2s linear;
+}
+
+.beat > div {
+    animation:
+        beatKeyRotate 1s ease-in-out infinite alternate,
+        beatKeyGlow 2s ease-in infinite;
+}
+
+/**
+ * Animation for falling beats.
+ */
+@keyframes beatFall {
+    0% {
+        top: -12%;
+    }
+    30% {
+        transform: scale(1.5);
+    }
+    100% {
+        top: 112%;
+    }
+}
+
+/**
+ * Animation for the beat key rotation.
+ */
+@keyframes beatKeyRotate {
+    0% {
+        transform: rotate(-45deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
+}
+
+/**
+ * Animation for the beat key glowing.
+ */
+@keyframes beatKeyGlow {
+    0% {
+        text-shadow: 0 0 0;
+    }
+    100% {
+        text-shadow: 0 0 128px;
+    }
 }
