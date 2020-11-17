@@ -19,7 +19,7 @@ body {
     color: var(--color-fg);
     font-family: monospace;
     margin: 0;
-    padding: 16px 32px;
+    padding: 0;
 }
 
 /* Hides the element. */

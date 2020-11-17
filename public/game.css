@@ -10,6 +10,7 @@
     --beat-size: 80px;
 
     position: relative;
+    overflow: hidden;
 }
 
 /*
