@@ -1,0 +1,47 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "indent": {
+            "options": ["spaces", 4],
+            "severity": "warn"
+        },
+        "semicolon": {
+            "options": "always",
+            "severity": "warn"
+        },
+        "quotemark": {
+            "options": "double",
+            "severity": "warn"
+        },
+        "trailing-comma": {
+            "options": {
+                "multiline": "always",
+                "singleline": "never",
+                "esSpecCompliant": true
+            },
+            "severity": "warn"
+        },
+        "member-access": {
+            "options": [
+                "check-accessor",
+                "check-constructor",
+                "check-parameter-property"
+            ],
+            "severity": "warn"
+        },
+        "ordered-imports": {
+            "options": {
+                "grouped-imports": false,
+                "import-sources-order": "lowercase-first",
+                "named-imports-order": "lowercase-first",
+                "module-source-path": "full"
+            },
+            "severity": "warn"
+        }
+    },
+    "rulesDirectory": []
+}
