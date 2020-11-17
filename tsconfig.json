@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "outDir": "public/build/",
         "module": "es6",
         "target": "es5",
         "lib": [
@@ -11,7 +10,8 @@
         "allowJs": false,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "sourceMap": true
     },
     "exclude": [
         "node_modules"
