@@ -1,8 +1,10 @@
+import { startGame } from "./game";
+
 function main() {
     setupStartButton();
 
-    // TODO DEBUG
-    startGame();
+    // // TODO DEBUG
+    // startGame();
 }
 
 function setupStartButton() {
@@ -14,11 +16,6 @@ function setupStartButton() {
             startGame();
         }
     });
-}
-
-function startGame() {
-    const gameEl = document.querySelector("#game");
-    gameEl?.classList.remove("hidden");
 }
 
 window.onload = main;

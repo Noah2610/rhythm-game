@@ -6,12 +6,10 @@ const HOSTNAME = process.env.HOST || "0.0.0.0";
 
 const app = express();
 
+app.use(express.static(path.resolve("./public")));
+
 app.get("/", (_req, res) => {
     res.sendFile(path.resolve("./public/index.html"));
-});
-
-app.get("/:file*", (req, res) => {
-    res.sendFile(path.resolve(`./public/${req.params.file}`));
 });
 
 app.listen(PORT, HOSTNAME, () =>
