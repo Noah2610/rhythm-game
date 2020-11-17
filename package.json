@@ -6,7 +6,7 @@
     "license": "MIT",
     "scripts": {
         "start": "yarn run build:app && yarn run build:serve && yarn run serve",
-        "dev": "( yarn run watch:app & yarn run watch:serve )",
+        "dev": "yarn run watch:app & yarn run watch:serve",
         "build:app": "webpack",
         "watch:app": "yarn run build:app --watch",
         "build:serve": "tsc-bundle tsconfig.server.json",
