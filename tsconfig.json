@@ -1,22 +1,17 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "outDir": "public/build/",
+        "module": "es6",
+        "target": "es5",
         "lib": [
             "dom",
             "dom.iterable",
             "esnext"
         ],
         "allowJs": false,
-        "skipLibCheck": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": false,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": false,
-        "allowSyntheticDefaultImports": true
+        "moduleResolution": "node"
     },
     "exclude": [
         "node_modules"

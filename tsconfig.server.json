@@ -1,26 +1,12 @@
 {
     "compilerOptions": {
+        "outFile": "server.js",
         "target": "es6",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
         "allowJs": false,
-        "skipLibCheck": true,
         "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": false,
-        "esModuleInterop": true,
-        "module": "esnext",
         "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": false,
-        "allowSyntheticDefaultImports": true
+        "esModuleInterop": true
     },
-    "exclude": [
-        "node_modules"
-    ],
     "include": [
         "server.ts"
     ]
