@@ -3,11 +3,21 @@
     <head>
         <meta charset="UTF-8" />
         <title>Rhythm Game</title>
-        <link rel="stylesheet" href="/style.css" />
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/game.css" />
     </head>
     <body>
-        <div class="float-center">
+        <div class="float-center hide-anim">
             <button id="btn-start" class="btn">START GAME</button>
+        </div>
+
+        <div id="game" class="hidden show-anim full">
+            <div class="beat-target-line">
+                <div class="beat-target">H</div>
+                <div class="beat-target">J</div>
+                <div class="beat-target">K</div>
+                <div class="beat-target">L</div>
+            </div>
         </div>
 
         <script type="text/javascript" src="/bundle.js"></script>

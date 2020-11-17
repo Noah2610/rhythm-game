@@ -1,0 +1,43 @@
+/*
+ * Styling for the actual game part of the page.
+ */
+
+/*
+ * The game wrapper element.
+ */
+#game {
+    --beat-target-size: 120px;
+
+    position: relative;
+}
+
+/*
+ * The row where all beat-targets are.
+ */
+.beat-target-line {
+    position: absolute;
+    width: 100%;
+    height: var(--beat-target-size);
+    bottom: 128px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/*
+ * These are the targets for the falling beats.
+ * The user must press the corresponding button when
+ * the beat is ontop of this target.
+ */
+.beat-target {
+    font-size: 64px;
+    font-weight: bold;
+    color: var(--color-primary);
+    width: var(--beat-target-size);
+    height: var(--beat-target-size);
+    line-height: var(--beat-target-size);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    box-shadow: 0 0 16px 16px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-shadow: 0px 0px 12px;
+}
