@@ -11,7 +11,7 @@
         "watch:app": "yarn run build:app --watch",
         "build:serve": "tsc-bundle tsconfig.server.json",
         "serve": "node server.js",
-        "watch:serve": "nodemon -x 'yarn run build:serve && yarn run serve' -w server.ts"
+        "watch:serve": "nodemon -w server.ts build:serve serve"
     },
     "dependencies": {
         "express": "^4.17.1"
