@@ -91,6 +91,16 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
         );
     }
 
+    beatEl.onanimationend = (event) => {
+        switch (event.animationName) {
+            case "beatFall":
+                beatEl.classList.add("beat--despawn");
+                break;
+            case "beatDespawn":
+                beatEl.remove();
+        }
+    };
+
     const beatInnerEl = document.createElement("div");
     beatInnerEl.innerText = beat;
 

@@ -8,6 +8,14 @@
     },
     "beats": [
         {
+            "time": 2000,
+            "key": "K",
+            "settings": {
+                "beatFallDuration": 2000
+            }
+        },
+
+        {
             "time": 4900,
             "key": "J",
             "settings": {

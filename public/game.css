@@ -136,6 +136,18 @@
     animation-fill-mode: forwards;
 }
 
+/**
+ * Adds a despawning animation to the beat.
+ * Used when the beat reaches its target.
+ */
+.beat--despawn {
+    box-shadow: none;
+    animation:
+        beatFall var(--beat-fall-duration) linear forwards,
+        beatDespawn 400ms ease-in forwards;
+    animation-duration: 400ms !important;
+}
+
 .beat > div {
     animation:
         beatKeyRotate 1s ease-in-out infinite alternate,
@@ -176,6 +188,19 @@
     }
     100% {
         text-shadow: 0 0 128px;
+    }
+}
+
+/**
+ * Animation when the beat is despawning.
+ * JS removes the element when this animation is finished.
+ */
+@keyframes beatDespawn {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
