@@ -53,7 +53,7 @@ function updateGame() {
 
     for (let i = 0; i < gameContext.upcomingBeats.length; i++) {
         const nextBeat = gameContext.upcomingBeats[i];
-        if (nextBeat.time >= time) {
+        if (time >= nextBeat.time) {
             spawnBeat(nextBeat.key);
             beatIndexesToRemove.push(i);
         }
