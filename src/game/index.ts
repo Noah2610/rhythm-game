@@ -109,18 +109,21 @@ function onKeyDown(event: KeyboardEvent) {
 
     const key = event.key.toUpperCase();
     if (gameContext.config.layout.keys.includes(key)) {
-        const beatTargetEl = dom.getBeatTarget(key);
-        if (!beatTargetEl) {
-            throw new Error(
-                `Beat target element doesn't exist for key: ${key}`,
-            );
-        }
-        beatTargetEl.classList.remove("beat-target--triggered");
-        setTimeout(
-            () => beatTargetEl.classList.add("beat-target--triggered"),
-            0,
-        );
-        beatTargetEl.onanimationend = () =>
-            beatTargetEl.classList.remove("beat-target--triggered");
+        triggerBeatTarget(key);
     }
+}
+
+function triggerBeatTarget(key: string) {
+    const beatTargetEl = dom.getBeatTarget(key);
+    if (!beatTargetEl) {
+        throw new Error(`Beat target element doesn't exist for key: ${key}`);
+    }
+    playBeatTargetTriggerAnimation(beatTargetEl);
+}
+
+function playBeatTargetTriggerAnimation(beatTargetEl: HTMLElement) {
+    beatTargetEl.classList.remove("beat-target--triggered");
+    setTimeout(() => beatTargetEl.classList.add("beat-target--triggered"), 0);
+    beatTargetEl.onanimationend = () =>
+        beatTargetEl.classList.remove("beat-target--triggered");
 }
