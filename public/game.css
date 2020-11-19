@@ -6,8 +6,29 @@
  * The game wrapper element.
  */
 #game {
-    --beat-target-size: 120px;
+    /**
+     * The size (width and height) of falling beats.
+     */
     --beat-size: 80px;
+
+    /**
+     * The duration of a beat's falling animation.
+     * In other words, the time a beat takes to reach its target.
+     * This is the default value.
+     * The JS can overwrite this default or for individual beats.
+     */
+    --beat-fall-duration: 2s;
+
+    /**
+     * The size (width and height) of beat targets.
+     */
+    --beat-target-size: 120px;
+
+    /**
+     * `.beat-target-line` offset to bottom of screen.
+     * Its `bottom` property.
+     */
+    --beat-target-line-bottom: 32px;
 
     position: relative;
     overflow: hidden;
@@ -37,7 +58,11 @@
     position: relative;
     display: block;
     width: var(--beat-target-size);
-    height: calc(100vh - 32px - (var(--beat-target-size) / 2));
+    height: calc(
+        100vh
+        - var(--beat-target-line-bottom)
+        - (var(--beat-target-size) / 2)
+    );
 }
 
 /**
@@ -47,7 +72,7 @@
     position: absolute;
     width: 100%;
     height: var(--beat-target-size);
-    bottom: 32px;
+    bottom: var(--beat-target-line-bottom);
     display: flex;
     justify-content: space-evenly;
     text-align: center;
@@ -95,8 +120,8 @@
 
     transform: translateX(-50%);
 
-    animation: beatFall;
-    animation-duration: 2s;
+    animation-name: beatFall;
+    animation-duration: var(--beat-fall-duration);
     animation-timing-function: linear;
     animation-fill-mode: forwards;
 }
