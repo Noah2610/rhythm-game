@@ -1,5 +1,7 @@
 {
     "layout": {
         "keys": ["H", "J", "K", "L"]
-    }
+    },
+    "beats": [],
+    "song": "ld43-titletheme.ogg"
 }
