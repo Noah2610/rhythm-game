@@ -12,7 +12,7 @@
         "build:app": "TARGET=app webpack",
         "build:server": "TARGET=server webpack",
         "watch:app": "yarn run build:app --watch",
-        "watch:server": "nodemon server.js -w server.ts"
+        "watch:server": "nodemon -x 'yarn run build:server && yarn run serve' -w server.ts"
     },
     "dependencies": {
         "express": "^4.17.1"
