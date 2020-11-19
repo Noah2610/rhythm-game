@@ -16,10 +16,18 @@ export async function loadMap(mapName: string): Promise<GameContext> {
     loadSong(mapConfig.song);
     createBeatTargets(mapConfig.layout);
     createBeatSpawns(mapConfig.layout);
+    setCssVariables(mapConfig);
 
     return {
         config: mapConfig,
     };
+}
+
+function setCssVariables(config: MapConfig) {
+    dom.game.style.setProperty(
+        "--beat-fall-duration",
+        `${config.beatSettings.beatFallDuration}ms`,
+    );
 }
 
 function resetGame() {

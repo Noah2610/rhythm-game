@@ -1,11 +1,18 @@
 {
+    "song": "ld43-titletheme.ogg",
+    "beatSettings": {
+        "beatFallDuration": 5000
+    },
     "layout": {
         "keys": ["H", "J", "K", "L"]
     },
     "beats": [
         {
             "time": 4900,
-            "key": "J"
+            "key": "J",
+            "settings": {
+                "beatFallDuration": 1000
+            }
         },
         {
             "time": 9730,
@@ -43,6 +50,5 @@
             "time": 18800,
             "key": "H"
         }
-    ],
-    "song": "ld43-titletheme.ogg"
+    ]
 }

@@ -1,4 +1,4 @@
-import { BeatSpawnConfig, MapConfig } from "../map-config";
+import { BeatSettings, BeatSpawnConfig, MapConfig } from "../map-config";
 import dom from "./dom-helper";
 import { loadMap } from "./map-loader";
 
@@ -48,14 +48,17 @@ function updateGame() {
         );
     }
 
-    const time = dom.song.currentTime * 1000.0;
+    const time = dom.song.currentTime * 1000;
 
     const beatIndexesToRemove = [];
 
     for (let i = 0; i < gameContext.upcomingBeats.length; i++) {
         const nextBeat = gameContext.upcomingBeats[i];
-        if (time >= nextBeat.time - 2000) {
-            spawnBeat(nextBeat.key);
+        const fallDuration =
+            nextBeat.settings?.beatFallDuration ||
+            gameContext.config.beatSettings.beatFallDuration;
+        if (time >= nextBeat.time - fallDuration) {
+            spawnBeat(nextBeat.key, nextBeat.settings);
             beatIndexesToRemove.push(i);
         }
     }
@@ -65,7 +68,7 @@ function updateGame() {
     }
 }
 
-function spawnBeat(beat: string) {
+function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
     if (!gameContext) {
         throw new Error("Game is not running, there is no GameContext.");
     }
@@ -80,6 +83,14 @@ function spawnBeat(beat: string) {
 
     const beatEl = document.createElement("div");
     beatEl.classList.add("beat");
+
+    if (settings?.beatFallDuration) {
+        beatEl.style.setProperty(
+            "animation-duration",
+            `${settings.beatFallDuration}ms`,
+        );
+    }
+
     const beatInnerEl = document.createElement("div");
     beatInnerEl.innerText = beat;
 
