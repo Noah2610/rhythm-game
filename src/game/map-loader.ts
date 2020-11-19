@@ -13,6 +13,7 @@ export async function loadMap(mapName: string): Promise<GameContext> {
         `/maps/${mapName}`,
     ).then((response) => response.json());
 
+    loadSong(mapConfig.song);
     createBeatTargets(mapConfig.layout);
     createBeatSpawns(mapConfig.layout);
 
@@ -24,6 +25,17 @@ export async function loadMap(mapName: string): Promise<GameContext> {
 function resetGame() {
     dom.beatTargetLine.innerHTML = "";
     dom.beatSpawnLine.innerHTML = "";
+    const audioEl = dom.game.querySelector("audio#song");
+    if (audioEl) {
+        audioEl.remove();
+    }
+}
+
+function loadSong(songName: string) {
+    const audioEl = new Audio(`/songs/${songName}`);
+    audioEl.id = "song";
+    audioEl.classList.add("hidden");
+    dom.game.appendChild(audioEl);
 }
 
 function createBeatTargets(layout: LayoutConfig) {

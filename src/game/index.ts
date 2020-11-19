@@ -1,4 +1,4 @@
-import { MapConfig } from "../map-config";
+import { BeatSpawnConfig, MapConfig } from "../map-config";
 import dom from "./dom-helper";
 import { loadMap } from "./map-loader";
 
@@ -9,14 +9,22 @@ let gameContext: GameContext | null = null;
 
 export interface GameContext {
     config: MapConfig;
+    upcomingBeats?: BeatSpawnConfig[];
 }
 
 export async function startGame() {
     gameContext = await loadMap("dev.json");
     dom.game.classList.remove("hidden");
     dom.game.focus();
-
     dom.game.addEventListener("keydown", onKeyDown);
+
+    gameContext.upcomingBeats = [...gameContext.config.beats];
+
+    const songEl = dom.getSong();
+    if (!songEl) {
+        throw new Error("The current map has no song.");
+    }
+    songEl.play();
 
     updateGameIntervalId = setInterval(updateGame, UPDATE_INTERVAL_MS);
 }
@@ -29,7 +37,32 @@ export function stopGame() {
     }
 }
 
-function updateGame() {}
+function updateGame() {
+    if (!gameContext) {
+        throw new Error("GameContext has to exist in `udpateGame()` function.");
+    }
+    if (!gameContext.upcomingBeats) {
+        throw new Error(
+            "GameContext's `upcomingBeats` should exist in `updateGame()` function",
+        );
+    }
+
+    const time = dom.song.currentTime * 1000.0;
+
+    const beatIndexesToRemove = [];
+
+    for (let i = 0; i < gameContext.upcomingBeats.length; i++) {
+        const nextBeat = gameContext.upcomingBeats[i];
+        if (nextBeat.time >= time) {
+            spawnBeat(nextBeat.key);
+            beatIndexesToRemove.push(i);
+        }
+    }
+
+    for (const idx of beatIndexesToRemove.reverse()) {
+        gameContext.upcomingBeats.splice(idx, 1);
+    }
+}
 
 function spawnBeat(beat: string) {
     if (!gameContext) {

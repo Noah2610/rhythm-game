@@ -36,6 +36,19 @@ export interface DomHelper {
     getBeatSpawn: (key: string) => HTMLElement | null;
 
     /**
+     * Returns the current map's song audio element.
+     * Returns `null` if there is no song,
+     * which is the case before the game starts.
+     */
+    getSong: () => HTMLAudioElement | null;
+
+    /**
+     * The current map's song audio.
+     * This could throw an error if the game is not running.
+     */
+    song: HTMLAudioElement;
+
+    /**
      * Internally used cache for queried elements.
      * Shouldn't be used outside of the `DomHelper`'s own functions.
      */
@@ -46,6 +59,7 @@ export interface DomHelper {
         beatSpawn: {
             [key: string]: HTMLElement;
         };
+        song: HTMLAudioElement | null;
     };
 }
 
@@ -89,11 +103,30 @@ const domHelper: DomHelper = {
         return this.beatSpawnLine.querySelector(`.beat-spawn[data-key=${key}]`);
     },
 
+    getSong() {
+        if (!this.cache.song) {
+            this.cache.song = this.queryExpect(
+                "audio#song",
+                this.game,
+            ) as HTMLAudioElement;
+        }
+        return this.cache.song;
+    },
+
+    get song() {
+        const el = this.getSong();
+        if (!el) {
+            throw new Error("Game has no audio element, is the game running?");
+        }
+        return el;
+    },
+
     cache: {
         game: null,
         beatTargetLine: null,
         beatSpawnLine: null,
         beatSpawn: {},
+        song: null,
     },
 };
 

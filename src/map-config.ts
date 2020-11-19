@@ -1,6 +1,7 @@
 export interface MapConfig {
     layout: LayoutConfig;
     beats: BeatSpawnConfig[];
+    song: string;
 }
 
 export interface LayoutConfig {
