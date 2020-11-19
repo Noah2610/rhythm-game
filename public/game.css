@@ -101,6 +101,16 @@
 }
 
 /**
+ * When the beat target is triggered, this class is added,
+ * to play the trigger animation.
+ */
+.beat-target--triggered {
+    animation-name: beatTargetTrigger;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
+}
+
+/**
  * A beat is what falls from the top of the screen
  * onto the beat-targets.
  */
@@ -166,5 +176,21 @@
     }
     100% {
         text-shadow: 0 0 128px;
+    }
+}
+
+/**
+ * Animation when a beat target is triggered.
+ * Plays when the user presses the key.
+ */
+@keyframes beatTargetTrigger {
+    0% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1.0);
     }
 }

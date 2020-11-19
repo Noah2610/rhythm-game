@@ -30,6 +30,12 @@ export interface DomHelper {
     beatSpawnLine: HTMLElement;
 
     /**
+     * Returns the `.beat-target` element for the given key.
+     * Returns `null` if it doesn't exist.
+     */
+    getBeatTarget: (key: string) => HTMLElement | null;
+
+    /**
      * Returns the `.beat-spawn` element for the given key.
      * Returns `null` if it doesn't exist.
      */
@@ -97,6 +103,12 @@ const domHelper: DomHelper = {
             ) as HTMLElement;
         }
         return this.cache.beatSpawnLine;
+    },
+
+    getBeatTarget(key: string) {
+        return this.beatTargetLine.querySelector(
+            `.beat-target[data-key=${key}]`,
+        );
     },
 
     getBeatSpawn(key: string) {

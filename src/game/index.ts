@@ -98,4 +98,29 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
     spawnEl.appendChild(beatEl);
 }
 
-function onKeyDown(event: KeyboardEvent) {}
+function onKeyDown(event: KeyboardEvent) {
+    if (event.repeat) {
+        return;
+    }
+
+    if (!gameContext) {
+        throw new Error("Game is not running, there is no GameContext.");
+    }
+
+    const key = event.key.toUpperCase();
+    if (gameContext.config.layout.keys.includes(key)) {
+        const beatTargetEl = dom.getBeatTarget(key);
+        if (!beatTargetEl) {
+            throw new Error(
+                `Beat target element doesn't exist for key: ${key}`,
+            );
+        }
+        beatTargetEl.classList.remove("beat-target--triggered");
+        setTimeout(
+            () => beatTargetEl.classList.add("beat-target--triggered"),
+            0,
+        );
+        beatTargetEl.onanimationend = () =>
+            beatTargetEl.classList.remove("beat-target--triggered");
+    }
+}
