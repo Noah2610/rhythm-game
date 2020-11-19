@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
-        "outFile": "server.js",
-        "target": "es6",
+        "module": "es6",
+        "target": "es5",
         "allowJs": false,
         "strict": true,
         "moduleResolution": "node",
-        "esModuleInterop": true
+        "allowSyntheticDefaultImports": true
     },
+    "exclude": [
+        "node_modules"
+    ],
     "include": [
         "server.ts"
     ]
