@@ -30,6 +30,12 @@ export interface DomHelper {
     beatSpawnLine: Element;
 
     /**
+     * Returns the `.beat-spawn` element for the given key.
+     * Returns `null` if it doesn't exist.
+     */
+    getBeatSpawn: (key: string) => Element | null;
+
+    /**
      * Internally used cache for queried elements.
      * Shouldn't be used outside of the `DomHelper`'s own functions.
      */
@@ -37,6 +43,9 @@ export interface DomHelper {
         game: Element | null;
         beatTargetLine: Element | null;
         beatSpawnLine: Element | null;
+        beatSpawn: {
+            [key: string]: Element;
+        };
     };
 }
 
@@ -76,10 +85,15 @@ const domHelper: DomHelper = {
         return this.cache.beatSpawnLine;
     },
 
+    getBeatSpawn(key: string) {
+        return this.beatSpawnLine.querySelector(`.beat-spawn[data-key=${key}]`);
+    },
+
     cache: {
         game: null,
         beatTargetLine: null,
         beatSpawnLine: null,
+        beatSpawn: {},
     },
 };
 
