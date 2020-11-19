@@ -14,12 +14,16 @@ export interface GameContext {
 export async function startGame() {
     gameContext = await loadMap("dev.json");
     dom.game.classList.remove("hidden");
+    dom.game.focus();
+
+    dom.game.addEventListener("keydown", onKeyDown);
 
     updateGameIntervalId = setInterval(updateGame, UPDATE_INTERVAL_MS);
 }
 
 export function stopGame() {
     gameContext = null;
+    dom.game.removeEventListener("keydown", onKeyDown);
     if (updateGameIntervalId) {
         clearInterval(updateGameIntervalId);
     }
@@ -48,3 +52,5 @@ function spawnBeat(beat: string) {
     beatEl.append(beatInnerEl);
     spawnEl.appendChild(beatEl);
 }
+
+function onKeyDown(event: KeyboardEvent) {}

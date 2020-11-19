@@ -17,34 +17,34 @@ export interface DomHelper {
     /**
      * The game wrapper element.
      */
-    game: Element;
+    game: HTMLElement;
 
     /**
      * The game's wrapper element for beat-targets.
      */
-    beatTargetLine: Element;
+    beatTargetLine: HTMLElement;
 
     /**
      * The game's wrapper element for beat-spawns.
      */
-    beatSpawnLine: Element;
+    beatSpawnLine: HTMLElement;
 
     /**
      * Returns the `.beat-spawn` element for the given key.
      * Returns `null` if it doesn't exist.
      */
-    getBeatSpawn: (key: string) => Element | null;
+    getBeatSpawn: (key: string) => HTMLElement | null;
 
     /**
      * Internally used cache for queried elements.
      * Shouldn't be used outside of the `DomHelper`'s own functions.
      */
     cache: {
-        game: Element | null;
-        beatTargetLine: Element | null;
-        beatSpawnLine: Element | null;
+        game: HTMLElement | null;
+        beatTargetLine: HTMLElement | null;
+        beatSpawnLine: HTMLElement | null;
         beatSpawn: {
-            [key: string]: Element;
+            [key: string]: HTMLElement;
         };
     };
 }
@@ -60,7 +60,7 @@ const domHelper: DomHelper = {
 
     get game() {
         if (!this.cache.game) {
-            this.cache.game = this.queryExpect("#game");
+            this.cache.game = this.queryExpect("#game") as HTMLElement;
         }
         return this.cache.game;
     },
@@ -70,7 +70,7 @@ const domHelper: DomHelper = {
             this.cache.beatTargetLine = this.queryExpect(
                 ".beat-target-line",
                 this.game,
-            );
+            ) as HTMLElement;
         }
         return this.cache.beatTargetLine;
     },
@@ -80,7 +80,7 @@ const domHelper: DomHelper = {
             this.cache.beatSpawnLine = this.queryExpect(
                 ".beat-spawn-line",
                 this.game,
-            );
+            ) as HTMLElement;
         }
         return this.cache.beatSpawnLine;
     },
