@@ -2,6 +2,47 @@
     "layout": {
         "keys": ["H", "J", "K", "L"]
     },
-    "beats": [],
+    "beats": [
+        {
+            "time": 4900,
+            "key": "J"
+        },
+        {
+            "time": 9730,
+            "key": "H"
+        },
+        {
+            "time": 10900,
+            "key": "L"
+        },
+        {
+            "time": 12100,
+            "key": "H"
+        },
+        {
+            "time": 13200,
+            "key": "L"
+        },
+        {
+            "time": 14500,
+            "key": "H"
+        },
+        {
+            "time": 15700,
+            "key": "L"
+        },
+        {
+            "time": 16900,
+            "key": "H"
+        },
+        {
+            "time": 18100,
+            "key": "L"
+        },
+        {
+            "time": 18800,
+            "key": "H"
+        }
+    ],
     "song": "ld43-titletheme.ogg"
 }

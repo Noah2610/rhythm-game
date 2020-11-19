@@ -15,8 +15,8 @@ export interface GameContext {
 export async function startGame() {
     gameContext = await loadMap("dev.json");
     dom.game.classList.remove("hidden");
-    dom.game.focus();
-    dom.game.addEventListener("keydown", onKeyDown);
+
+    document.addEventListener("keydown", onKeyDown);
 
     gameContext.upcomingBeats = [...gameContext.config.beats];
 
@@ -31,7 +31,8 @@ export async function startGame() {
 
 export function stopGame() {
     gameContext = null;
-    dom.game.removeEventListener("keydown", onKeyDown);
+    document.removeEventListener("keydown", onKeyDown);
+
     if (updateGameIntervalId) {
         clearInterval(updateGameIntervalId);
     }
@@ -53,7 +54,7 @@ function updateGame() {
 
     for (let i = 0; i < gameContext.upcomingBeats.length; i++) {
         const nextBeat = gameContext.upcomingBeats[i];
-        if (time >= nextBeat.time) {
+        if (time >= nextBeat.time - 2000) {
             spawnBeat(nextBeat.key);
             beatIndexesToRemove.push(i);
         }

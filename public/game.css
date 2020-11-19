@@ -34,10 +34,10 @@
  * Should be a child of `.beat-spawn-line`.
  */
 .beat-spawn {
+    position: relative;
     display: block;
     width: var(--beat-target-size);
-    top: 0;
-    bottom: 0;
+    height: calc(100vh - 32px - (var(--beat-target-size) / 2));
 }
 
 /**
@@ -80,7 +80,7 @@
  * onto the beat-targets.
  */
 .beat {
-    position: relative;
+    position: absolute;
     display: inline-block;
     font-size: 64px;
     color: var(--color-fg);
@@ -93,7 +93,12 @@
     box-shadow: 0 -16px 14px 10px rgba(0, 0, 0, 0.3);
     /* text-shadow: 0px -8px 12px; */
 
-    animation: beatFall 2s linear;
+    transform: translateX(-50%);
+
+    animation: beatFall;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
 }
 
 .beat > div {
@@ -109,12 +114,9 @@
     0% {
         top: calc(var(--beat-size) * -1);
     }
-    30% {
-        transform: scale(1.5);
-    }
     100% {
         /* top: calc(var(--beat-size) + 100%); */
-        top: calc(var(--beat-size) + 100vh);
+        top: calc(100% - (var(--beat-size) / 2));
     }
 }
 
