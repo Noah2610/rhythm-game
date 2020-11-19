@@ -1,8 +1,8 @@
-/*
+/**
  * Styling for the actual game part of the page.
  */
 
-/*
+/**
  * The game wrapper element.
  */
 #game {
@@ -11,9 +11,36 @@
 
     position: relative;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
-/*
+/**
+ * The row where beat-targets spawn.
+ * Should have the same amount of children `.beat-spawn` elements
+ * as the `.beat-target-line` has.
+ */
+.beat-spawn-line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    overflow: visible;
+    top: -32px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/**
+ * Spawn point for beats.
+ * Should be a child of `.beat-spawn-line`.
+ */
+.beat-spawn {
+    display: block;
+    width: var(--beat-target-size);
+    height: var(--beat-target-size);
+}
+
+/**
  * The row where all beat-targets are.
  */
 .beat-target-line {
@@ -29,7 +56,7 @@
     box-shadow: 0 0 16px 16px rgba(0, 0, 0, 0.3);
 }
 
-/*
+/**
  * These are the targets for the falling beats.
  * The user must press the corresponding button when
  * the beat is ontop of this target.
