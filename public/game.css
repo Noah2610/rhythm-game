@@ -146,7 +146,7 @@
     left: -50%;
     text-align: center;
     font-size: 24px;
-    text-shadow: 2px 2px black;
+    text-shadow: 2px 2px 2px black;
 }
 
 .beat-label--default {
@@ -155,10 +155,12 @@
 
 .beat-label--success {
     color: green;
+    animation: beatLabelSuccessAnim 250ms ease-out 2 alternate;
 }
 
 .beat-label--failure {
     color: red;
+    animation: beatLabelFailureAnim 500ms linear;
 }
 
 /**
@@ -169,7 +171,7 @@
     box-shadow: none;
     animation:
         beatFall var(--beat-fall-duration) linear forwards paused,
-        beatDespawn 400ms ease-in forwards;
+        beatDespawn 500ms ease-in forwards;
 }
 
 .beat > .beat-key {
@@ -240,5 +242,52 @@
     }
     100% {
         transform: scale(1.0);
+    }
+}
+
+/**
+ * Glowing animation for success beat-label,
+ * on successful beat hits.
+ */
+@keyframes beatLabelSuccessAnim {
+    0% {
+        font-size: 24px;
+        text-shadow:
+            2px 2px 2px black,
+            0px 0px 0px #00ff00;
+    }
+    100% {
+        font-size: 32px;
+        text-shadow:
+            2px 2px 2px black,
+            0px 0px 64px #00ff00;
+    }
+}
+
+/**
+ * Beat hit failure animation for failure beat-label.
+ * Rough shaking animation.
+ */
+@keyframes beatLabelFailureAnim {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(-10deg);
+    }
+    30% {
+        transform: rotate(10deg);
+    }
+    50% {
+        transform: rotate(-10deg);
+    }
+    70% {
+        transform: rotate(10deg);
+    }
+    90% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }
