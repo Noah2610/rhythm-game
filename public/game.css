@@ -117,6 +117,7 @@
 .beat {
     position: absolute;
     display: inline-block;
+    z-index: 1;
     font-size: 64px;
     color: var(--color-fg);
     width: var(--beat-size);
@@ -128,11 +129,6 @@
     box-shadow: 0 -16px 14px 10px rgba(0, 0, 0, 0.3);
 
     transform: translateX(-50%);
-
-    animation-name: beatFall;
-    animation-duration: var(--beat-fall-duration);
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
 }
 
 /**
@@ -164,13 +160,32 @@
 }
 
 /**
+ * Beat falling animation.
+ * Is applied when spawning beats.
+ */
+.beat--fall {
+    animation: beatFall var(--beat-fall-duration) linear forwards;
+}
+
+/**
+ * After beat finished its falling animation,
+ * it should continue falling a bit with a different animation.
+ */
+.beat--fall-post {
+    animation:
+        beatFall var(--beat-fall-duration) linear forwards paused,
+        beatFallPost 500ms linear forwards;
+}
+
+/**
  * Adds a despawning animation to the beat.
- * Used when the beat reaches its target.
+ * Used before the beat is removed.
  */
 .beat--despawn {
     box-shadow: none;
     animation:
         beatFall var(--beat-fall-duration) linear forwards paused,
+        beatFallPost 500ms linear forwards paused,
         beatDespawn 500ms ease-in forwards;
 }
 
@@ -189,6 +204,19 @@
     }
     100% {
         top: calc(100% - (var(--beat-size) / 2));
+    }
+}
+
+/**
+ * Beat fall animation after main falling animation finished.
+ * Falls off-screen.
+ */
+@keyframes beatFallPost {
+    0% {
+        margin-top: 0;
+    }
+    100% {
+        margin-top: calc(var(--beat-target-size) + var(--beat-target-line-bottom));
     }
 }
 

@@ -83,11 +83,10 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
     }
 
     const beatEl = document.createElement("div");
-    beatEl.classList.add("beat");
+    beatEl.classList.add("beat", "beat--fall");
 
     if (settings?.beatFallDuration) {
         beatEl.style.setProperty(
-            // "animation-duration",
             "--beat-fall-duration",
             `${settings.beatFallDuration}ms`,
         );
@@ -96,6 +95,10 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
     beatEl.onanimationend = (event) => {
         switch (event.animationName) {
             case "beatFall":
+                beatEl.classList.add("beat--fall-post");
+                break;
+            case "beatFallPost":
+                setBeatElementLabel(beatEl, "Missed", "failure");
                 beatEl.classList.add("beat--despawn");
                 break;
             case "beatDespawn":

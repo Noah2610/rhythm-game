@@ -19,19 +19,19 @@ interface BeatBeatHitStateRanges {
 
 const BEAT_HIT_STATE_RANGES: BeatBeatHitStateRanges = {
     [BeatHitState.Perfect]: {
-        low: 0,
-        high: 32,
+        low: -16,
+        high: 16,
     },
     [BeatHitState.Early]: {
-        low: 32,
-        high: 128,
+        low: 16,
+        high: 48,
     },
     [BeatHitState.Late]: {
-        low: -32,
-        high: 0,
+        low: -48,
+        high: -16,
     },
     [BeatHitState.Missed]: {
-        low: 128,
+        low: 48,
         high: Infinity,
     },
 };
