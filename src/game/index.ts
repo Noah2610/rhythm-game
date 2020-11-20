@@ -128,7 +128,9 @@ function triggerBeatTarget(key: string) {
     if (!beatTargetEl) {
         throw new Error(`Beat target element doesn't exist for key: ${key}`);
     }
+
     playBeatTargetTriggerAnimation(beatTargetEl);
+    checkBeatHit(key);
 }
 
 function playBeatTargetTriggerAnimation(beatTargetEl: HTMLElement) {
@@ -137,3 +139,78 @@ function playBeatTargetTriggerAnimation(beatTargetEl: HTMLElement) {
     beatTargetEl.onanimationend = () =>
         beatTargetEl.classList.remove("beat-target--triggered");
 }
+
+function checkBeatHit(key: string) {
+    const beatSpawnEl = dom.getBeatSpawn(key);
+    if (!beatSpawnEl) {
+        throw new Error(`Beat spawn element doesn't exist for key: ${key}`);
+    }
+    const nearestBeatEl = beatSpawnEl.firstChild as HTMLElement | null;
+    if (nearestBeatEl) {
+        const beatTargetEl = dom.getBeatTarget(key);
+        if (!beatTargetEl) {
+            throw new Error(
+                `Beat target element doesn't exist for key: ${key}`,
+            );
+        }
+
+        const beatTargetRect = beatTargetEl.getBoundingClientRect();
+        const beatTargetY = beatTargetRect.top + beatTargetRect.height * 0.5;
+        const nearestBeatRect = nearestBeatEl.getBoundingClientRect();
+        const nearestBeatY = nearestBeatRect.top + nearestBeatRect.height * 0.5;
+
+        const dist = beatTargetY - nearestBeatY;
+
+        const hitState: HitState = getHitStateFromDist(dist);
+
+        console.log(hitState);
+    }
+}
+
+function getHitStateFromDist(dist: number): HitState {
+    return (
+        [HitState.Perfect, HitState.Early, HitState.Late, HitState.Missed].find(
+            (hitState) =>
+                dist >= BEAT_HIT_STATE_RANGES[hitState].low &&
+                dist < BEAT_HIT_STATE_RANGES[hitState].high,
+        ) || HitState.Missed
+    );
+}
+
+enum HitState {
+    Perfect = "Perfect",
+    Early = "Early",
+    Late = "Late",
+    Missed = "Missed",
+}
+
+interface Range {
+    low: number;
+    high: number;
+}
+
+interface BeatHitStateRanges {
+    [HitState.Perfect]: Range;
+    [HitState.Early]: Range;
+    [HitState.Late]: Range;
+    [HitState.Missed]: Range;
+}
+
+const BEAT_HIT_STATE_RANGES: BeatHitStateRanges = {
+    [HitState.Perfect]: {
+        low: 0,
+        high: 32,
+    },
+    [HitState.Early]: {
+        low: 32,
+        high: 128,
+    },
+    [HitState.Late]: {
+        low: -32,
+        high: 0,
+    },
+    [HitState.Missed]: {
+        low: 128,
+        high: Infinity,
+    },
+};
