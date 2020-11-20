@@ -126,7 +126,6 @@
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 -16px 14px 10px rgba(0, 0, 0, 0.3);
-    /* text-shadow: 0px -8px 12px; */
 
     transform: translateX(-50%);
 
@@ -148,6 +147,16 @@
     animation-duration: 400ms !important;
 }
 
+.beat--despawn::before {
+    content: "Missed";
+    position: absolute;
+    top: calc(var(--beat-target-size) * -1);
+    color: red;
+    font-size: 24px;
+    transform: translateX(-50%);
+    text-shadow: 2px 2px black;
+}
+
 .beat > div {
     animation:
         beatKeyRotate 1s ease-in-out infinite alternate,
@@ -162,7 +171,6 @@
         top: calc(var(--beat-size) * -1);
     }
     100% {
-        /* top: calc(var(--beat-size) + 100%); */
         top: calc(100% - (var(--beat-size) / 2));
     }
 }
