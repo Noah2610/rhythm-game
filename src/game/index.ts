@@ -1,6 +1,6 @@
 import { BeatSettings, BeatSpawnConfig, MapConfig } from "../map-config";
+import { getBeatHitStateFromDist, BeatHitState } from "./beat-hit-state";
 import dom from "./dom-helper";
-import { getHitStateFromDist, HitState } from "./hit-state";
 import { loadMap } from "./map-loader";
 
 const UPDATE_INTERVAL_MS = 1000.0 / 60.0;
@@ -162,7 +162,7 @@ function checkBeatHit(key: string) {
 
         const dist = beatTargetY - nearestBeatY;
 
-        const hitState: HitState = getHitStateFromDist(dist);
+        const hitState: BeatHitState = getBeatHitStateFromDist(dist);
 
         console.log(hitState);
     }
