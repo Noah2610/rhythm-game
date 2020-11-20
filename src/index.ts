@@ -2,9 +2,6 @@ import { startGame } from "./game";
 
 function main() {
     setupStartButton();
-
-    // // TODO DEBUG
-    // startGame();
 }
 
 function setupStartButton() {
