@@ -87,7 +87,8 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
 
     if (settings?.beatFallDuration) {
         beatEl.style.setProperty(
-            "animation-duration",
+            // "animation-duration",
+            "--beat-fall-duration",
             `${settings.beatFallDuration}ms`,
         );
     }
@@ -102,9 +103,13 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
         }
     };
 
+    const beatLabelEl = document.createElement("div");
+    beatLabelEl.classList.add("beat-label");
     const beatInnerEl = document.createElement("div");
+    beatInnerEl.classList.add("beat-key");
     beatInnerEl.innerText = beat;
 
+    beatEl.append(beatLabelEl);
     beatEl.append(beatInnerEl);
     spawnEl.appendChild(beatEl);
 }
@@ -163,7 +168,31 @@ function checkBeatHit(key: string) {
         const dist = beatTargetY - nearestBeatY;
 
         const hitState: BeatHitState = getBeatHitStateFromDist(dist);
+        const labelType = (() => {
+            switch (hitState) {
+                case BeatHitState.Perfect:
+                    return "success";
+                case BeatHitState.Missed:
+                    return "failure";
+                default:
+                    return "default";
+            }
+        })();
 
-        console.log(hitState);
+        setBeatElementLabel(nearestBeatEl, hitState, labelType);
+        nearestBeatEl.classList.add("beat--despawn");
     }
+}
+
+function setBeatElementLabel(
+    beatEl: HTMLElement,
+    label: string,
+    labelType: "default" | "success" | "failure" = "default",
+) {
+    const labelEl = beatEl.querySelector(".beat-label") as HTMLElement | null;
+    if (!labelEl) {
+        throw new Error("Beat label element doesn't exist.");
+    }
+    labelEl.classList.add(`beat-label--${labelType}`);
+    labelEl.innerText = label;
 }

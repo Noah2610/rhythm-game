@@ -136,28 +136,43 @@
 }
 
 /**
+ * The beat-label contains beat hit strings,
+ * such as "Perfect", or "Missed".
+ */
+.beat-label {
+    position: absolute;
+    width: 200%;
+    top: calc(var(--beat-target-size) * -1);
+    left: -50%;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 2px 2px black;
+}
+
+.beat-label--default {
+    color: white;
+}
+
+.beat-label--success {
+    color: green;
+}
+
+.beat-label--failure {
+    color: red;
+}
+
+/**
  * Adds a despawning animation to the beat.
  * Used when the beat reaches its target.
  */
 .beat--despawn {
     box-shadow: none;
     animation:
-        beatFall var(--beat-fall-duration) linear forwards,
+        beatFall var(--beat-fall-duration) linear forwards paused,
         beatDespawn 400ms ease-in forwards;
-    animation-duration: 400ms !important;
 }
 
-.beat--despawn::before {
-    content: "Missed";
-    position: absolute;
-    top: calc(var(--beat-target-size) * -1);
-    color: red;
-    font-size: 24px;
-    transform: translateX(-50%);
-    text-shadow: 2px 2px black;
-}
-
-.beat > div {
+.beat > .beat-key {
     animation:
         beatKeyRotate 1s ease-in-out infinite alternate,
         beatKeyGlow 2s ease-in infinite;
