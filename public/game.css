@@ -30,6 +30,11 @@
      */
     --beat-target-line-bottom: 32px;
 
+    /**
+     * Animation duration for despawning beats.
+     */
+    --beat-despawn-duration: 500ms;
+
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -151,12 +156,13 @@
 
 .beat-label--success {
     color: green;
-    animation: beatLabelSuccessAnim 250ms ease-out 2 alternate;
+    /* animation: beatLabelSuccessAnim calc(var(--beat-despawn-duration) / 2) ease-out 2 alternate; */
+    animation: beatLabelSuccessAnim var(--beat-despawn-duration) linear;
 }
 
 .beat-label--failure {
     color: red;
-    animation: beatLabelFailureAnim 500ms linear;
+    animation: beatLabelFailureAnim var(--beat-despawn-duration) linear;
 }
 
 /**
@@ -186,7 +192,19 @@
     animation:
         beatFall var(--beat-fall-duration) linear forwards paused,
         beatFallPost var(--beat-fall-duration) linear forwards paused,
-        beatDespawn 500ms ease-in forwards;
+        beatDespawn var(--beat-despawn-duration) ease-in forwards;
+}
+
+/**
+ * Adds a despawning success animation to the beat.
+ * Used before the beat is removed, on a perfect hit.
+ */
+.beat--despawn-success {
+    box-shadow: none;
+    animation:
+        beatFall var(--beat-fall-duration) linear forwards paused,
+        beatFallPost var(--beat-fall-duration) linear forwards paused,
+        beatDespawnSuccess var(--beat-despawn-duration) ease-in forwards;
 }
 
 .beat > .beat-key {
@@ -248,7 +266,6 @@
 
 /**
  * Animation when the beat is despawning.
- * JS removes the element when this animation is finished.
  */
 @keyframes beatDespawn {
     0% {
@@ -256,6 +273,21 @@
     }
     100% {
         opacity: 0;
+    }
+}
+
+/**
+ * Animation when the beat is despawning, on a successful hit.
+ */
+@keyframes beatDespawnSuccess {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.0);
+    }
+    100% {
+        opacity: 0;
+        color: green;
+        transform: translateX(-50%) scale(3.0);
     }
 }
 
@@ -285,12 +317,14 @@
         text-shadow:
             2px 2px 2px black,
             0px 0px 0px #00ff00;
+        transform: rotate(-90deg);
     }
     100% {
         font-size: 32px;
         text-shadow:
             2px 2px 2px black,
             0px 0px 64px #00ff00;
+        transform: rotate(90deg);
     }
 }
 

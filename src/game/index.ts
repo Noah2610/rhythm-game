@@ -114,6 +114,7 @@ function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {
                 beatEl.classList.add("beat--despawn");
                 break;
             case "beatDespawn":
+            case "beatDespawnSuccess":
                 beatEl.remove();
         }
     };
@@ -195,7 +196,11 @@ function checkBeatHit(key: string) {
         })();
 
         setBeatElementLabel(nearestBeatEl, hitState, labelType);
-        nearestBeatEl.classList.add("beat--despawn");
+        if (labelType === "success") {
+            nearestBeatEl.classList.add("beat--despawn-success");
+        } else {
+            nearestBeatEl.classList.add("beat--despawn");
+        }
     }
 }
 
