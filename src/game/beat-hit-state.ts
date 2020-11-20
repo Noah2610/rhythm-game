@@ -24,14 +24,14 @@ const BEAT_HIT_STATE_RANGES: BeatBeatHitStateRanges = {
     },
     [BeatHitState.Early]: {
         low: 16,
-        high: 48,
+        high: 64,
     },
     [BeatHitState.Late]: {
-        low: -48,
+        low: -64,
         high: -16,
     },
     [BeatHitState.Missed]: {
-        low: 48,
+        low: 64,
         high: Infinity,
     },
 };
