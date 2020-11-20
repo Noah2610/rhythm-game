@@ -67,6 +67,18 @@ function updateGame() {
     for (const idx of beatIndexesToRemove.reverse()) {
         gameContext.upcomingBeats.splice(idx, 1);
     }
+
+    // Despawn off-screen beats
+    const beatEls = dom.beatSpawnLine.querySelectorAll(
+        ".beat.beat--fall-post",
+    ) as NodeListOf<HTMLElement>;
+    beatEls.forEach((beatEl) => {
+        const beatRect = beatEl.getBoundingClientRect();
+        if (beatRect.top >= window.innerHeight) {
+            setBeatElementLabel(beatEl, "Missed", "failure");
+            beatEl.classList.add("beat--despawn");
+        }
+    });
 }
 
 function spawnBeat(beat: string, settings?: Partial<BeatSettings>) {

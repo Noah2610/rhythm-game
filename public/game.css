@@ -174,7 +174,7 @@
 .beat--fall-post {
     animation:
         beatFall var(--beat-fall-duration) linear forwards paused,
-        beatFallPost 500ms linear forwards;
+        beatFallPost var(--beat-fall-duration) linear forwards;
 }
 
 /**
@@ -185,7 +185,7 @@
     box-shadow: none;
     animation:
         beatFall var(--beat-fall-duration) linear forwards paused,
-        beatFallPost 500ms linear forwards paused,
+        beatFallPost var(--beat-fall-duration) linear forwards paused,
         beatDespawn 500ms ease-in forwards;
 }
 
@@ -216,7 +216,9 @@
         margin-top: 0;
     }
     100% {
-        margin-top: calc(var(--beat-target-size) + var(--beat-target-line-bottom));
+        /* margin-top: calc(var(--beat-target-size) + var(--beat-target-line-bottom)); */
+        /* margin-top: calc(100% - (var(--beat-size) / 2)); */
+        margin-top: calc(100vh - var(--beat-target-size) - var(--beat-target-line-bottom));
     }
 }
 
