@@ -1,4 +1,4 @@
-# Browser Rhyhthm Game
+# Browser Rhythm Game
 A simple typescript rhythm game for your browser.
 
 ## Running the app
