@@ -1,4 +1,3 @@
-import { GameContext } from "../game";
 import { LayoutConfig, MapConfig } from "../map-config";
 import dom from "./dom-helper";
 
@@ -6,7 +5,7 @@ import dom from "./dom-helper";
  * Loads a map config file with the given file name.
  * File name should end in `.json`.
  */
-export async function loadMap(mapName: string): Promise<GameContext> {
+export async function loadMap(mapName: string): Promise<MapConfig> {
     resetGame();
 
     const mapConfig: MapConfig = await fetch(
@@ -18,9 +17,7 @@ export async function loadMap(mapName: string): Promise<GameContext> {
     createBeatSpawns(mapConfig.layout);
     setCssVariables(mapConfig);
 
-    return {
-        config: mapConfig,
-    };
+    return mapConfig;
 }
 
 function setCssVariables(config: MapConfig) {
