@@ -11,21 +11,25 @@ export interface GameContext {
     stopGame: () => void;
 
     updateGameIntervalId: NodeJS.Timeout | null;
+    onKeyDown: (event: KeyboardEvent) => void;
 }
 
 const UPDATE_INTERVAL_MS = 1000.0 / 60.0;
 
 export function newGameContext(mapConfig: MapConfig): GameContext {
-    return {
+    const context: GameContext = {
         config: mapConfig,
         upcomingBeats: [...mapConfig.beats],
 
         startGame() {
             dom.game.classList.remove("hidden");
 
-            document.addEventListener("keydown", (event) => {
-                onKeyDown(this, event);
-            });
+            const context = this;
+
+            this.onKeyDown = (event: KeyboardEvent) =>
+                onKeyDown(context, event);
+
+            document.addEventListener("keydown", this.onKeyDown);
 
             const songEl = dom.getSong();
             if (!songEl) {
@@ -40,10 +44,7 @@ export function newGameContext(mapConfig: MapConfig): GameContext {
         },
 
         stopGame() {
-            // TODO: I don't think this works.
-            document.removeEventListener("keydown", (event) =>
-                onKeyDown(this, event),
-            );
+            document.removeEventListener("keydown", this.onKeyDown);
 
             if (this.updateGameIntervalId) {
                 clearInterval(this.updateGameIntervalId);
@@ -51,5 +52,10 @@ export function newGameContext(mapConfig: MapConfig): GameContext {
         },
 
         updateGameIntervalId: null,
+
+        // This should be overwritten in `startGame`.
+        onKeyDown(event) {},
     };
+
+    return context;
 }
