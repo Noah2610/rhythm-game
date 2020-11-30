@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Map Editor | Rhythm Game</title>
+        <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/game.css" />
+        <link rel="stylesheet" href="/editor.css" />
+    </head>
+    <body>
+        <div id="editor">
+            <div class="menu">
+                <div class="menu-item">
+                    <label for="btn-load-song" class="btn">
+                        Load Song
+                    </label>
+                    <input
+                        id="btn-load-song"
+                        name="btn-load-song"
+                        type="file"
+                        class="hidden" />
+                </div>
+
+                <div class="menu-item">
+                    <label class="menu-label" for="editor-input-map-name">
+                        Map Name
+                    </label>
+                    <input
+                        id="editor-input-map-name"
+                        name="editor-input-map-name"
+                        class="input-text"
+                        type="text"
+                        placeholder="Map name..." />
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/bundle.js"></script>
+    </body>
+</html>

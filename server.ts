@@ -12,6 +12,10 @@ app.get("/", (_req, res) => {
     res.sendFile(path.resolve("./public/index.html"));
 });
 
+app.get("/editor", (_req, res) => {
+    res.sendFile(path.resolve("./public/editor.html"));
+});
+
 app.listen(PORT, HOSTNAME, () =>
     console.log(`Server running on http://${HOSTNAME}:${PORT}`),
 );
