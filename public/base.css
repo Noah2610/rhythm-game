@@ -78,3 +78,19 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/**
+ * Fancy text styling.
+ */
+.text {
+    text-shadow: 4px 2px 8px var(--color-primary);
+}
+
+/**
+ * For main headings.
+ */
+.heading {
+    display: block;
+    text-align: center;
+    font-size: 32px;
+}
