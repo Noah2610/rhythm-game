@@ -1,12 +1,14 @@
 import { BeatSpawnConfig, MapConfig } from "../map-config";
 import dom from "./dom-helper";
 import { onKeyDown } from "./input";
+import { loadMap } from "./map-loader";
 import { updateGame } from "./update";
 
 export interface GameContext {
-    config: MapConfig;
+    map?: MapConfig;
     upcomingBeats: BeatSpawnConfig[];
 
+    loadMap: (mapName: string) => void;
     startGame: () => void;
     stopGame: () => void;
 
@@ -16,12 +18,19 @@ export interface GameContext {
 
 const UPDATE_INTERVAL_MS = 1000.0 / 60.0;
 
-export function newGameContext(mapConfig: MapConfig): GameContext {
-    const context: GameContext = {
-        config: mapConfig,
-        upcomingBeats: [...mapConfig.beats],
+export function newGameContext(): GameContext {
+    return {
+        upcomingBeats: [],
+
+        async loadMap(mapName) {
+            this.map = await loadMap(mapName);
+        },
 
         startGame() {
+            if (!this.map) {
+                throw new Error("Can't start game with no map config");
+            }
+
             dom.game.classList.remove("hidden");
 
             const context = this;
@@ -29,6 +38,7 @@ export function newGameContext(mapConfig: MapConfig): GameContext {
             this.onKeyDown = (event: KeyboardEvent) =>
                 onKeyDown(context, event);
 
+            document.removeEventListener("keydown", this.onKeyDown);
             document.addEventListener("keydown", this.onKeyDown);
 
             const songEl = dom.getSong();
@@ -45,7 +55,6 @@ export function newGameContext(mapConfig: MapConfig): GameContext {
 
         stopGame() {
             document.removeEventListener("keydown", this.onKeyDown);
-
             if (this.updateGameIntervalId) {
                 clearInterval(this.updateGameIntervalId);
             }
@@ -56,6 +65,4 @@ export function newGameContext(mapConfig: MapConfig): GameContext {
         // This should be overwritten in `startGame`.
         onKeyDown(event) {},
     };
-
-    return context;
 }
