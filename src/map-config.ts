@@ -5,6 +5,11 @@ export interface MapConfig {
     song: string;
 
     /**
+     * The beats-per-minute for this song and map.
+     */
+    bpm: number;
+
+    /**
      * The beat/keyboard keys to use for this map.
      */
     layout: LayoutConfig;
@@ -27,10 +32,10 @@ export interface LayoutConfig {
 
 export interface BeatSpawnConfig {
     /**
-     * The time in milliseconds, relative to the playing song,
-     * when to spawn the beat.
+     * The beat index when to spawn the beat.
+     * Relates to the `bpm` setting in `MapConfig` and the song duration.
      */
-    time: number;
+    beat: number;
 
     /**
      * The beat key to spawn.

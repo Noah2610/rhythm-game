@@ -8,9 +8,9 @@ import dom from "./dom-helper";
 export async function loadMap(mapName: string): Promise<MapConfig> {
     resetGame();
 
-    const mapConfig: MapConfig = await fetch(
-        `/maps/${mapName}`,
-    ).then((response) => response.json());
+    const mapConfig: MapConfig = await fetch(`/maps/${mapName}`)
+        .then((response) => response.json())
+        .catch(console.error);
 
     loadSong(mapConfig.song);
     createBeatTargets(mapConfig.layout);

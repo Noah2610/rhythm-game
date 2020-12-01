@@ -15,7 +15,11 @@ export function updateGame(gameContext: GameContext) {
         );
     }
 
-    const time = dom.song.currentTime * 1000;
+    const songTime = dom.song.currentTime * 1000.0;
+    const bps = 60.0 / gameContext.map.bpm;
+    const bpsMs = bps * 1000.0;
+    const beatIndex = Math.floor(dom.song.currentTime / bps);
+    gameContext.beatIndex = beatIndex;
 
     const beatIndexesToRemove = [];
 
@@ -24,7 +28,8 @@ export function updateGame(gameContext: GameContext) {
         const fallDuration =
             nextBeat.settings?.beatFallDuration ||
             gameContext.map.beatSettings.beatFallDuration;
-        if (time >= nextBeat.time - fallDuration) {
+        const beatSpawnTime = nextBeat.beat * bpsMs - fallDuration;
+        if (songTime >= beatSpawnTime) {
             spawnBeat(gameContext, nextBeat.key, nextBeat.settings);
             beatIndexesToRemove.push(i);
         }

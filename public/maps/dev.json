@@ -1,5 +1,6 @@
 {
     "song": "ld43-titletheme.ogg",
+    "bpm": 100,
     "beatSettings": {
         "beatFallDuration": 5000
     },
@@ -8,55 +9,27 @@
     },
     "beats": [
         {
-            "time": 2000,
+            "beat": 8,
             "key": "K",
             "settings": {
                 "beatFallDuration": 2000
             }
         },
-
         {
-            "time": 4900,
-            "key": "J",
-            "settings": {
-                "beatFallDuration": 1000
-            }
-        },
-        {
-            "time": 9730,
+            "beat": 16,
             "key": "H"
         },
         {
-            "time": 10900,
+            "beat": 18,
             "key": "L"
         },
         {
-            "time": 12100,
+            "beat": 20,
             "key": "H"
         },
         {
-            "time": 13200,
+            "beat": 22,
             "key": "L"
-        },
-        {
-            "time": 14500,
-            "key": "H"
-        },
-        {
-            "time": 15700,
-            "key": "L"
-        },
-        {
-            "time": 16900,
-            "key": "H"
-        },
-        {
-            "time": 18100,
-            "key": "L"
-        },
-        {
-            "time": 18800,
-            "key": "H"
         }
     ]
 }

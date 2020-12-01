@@ -7,8 +7,12 @@ import { updateGame } from "./update";
 export interface GameContext {
     map?: MapConfig;
     upcomingBeats: BeatSpawnConfig[];
+    /**
+     * The map's current beat index.
+     */
+    beatIndex: number;
 
-    loadMap: (mapName: string) => void;
+    loadMap: (mapName: string) => Promise<void>;
     startGame: () => void;
     stopGame: () => void;
 
@@ -21,9 +25,15 @@ const UPDATE_INTERVAL_MS = 1000.0 / 60.0;
 export function newGameContext(): GameContext {
     return {
         upcomingBeats: [],
+        beatIndex: 0,
 
         async loadMap(mapName) {
-            this.map = await loadMap(mapName);
+            try {
+                this.map = await loadMap(mapName);
+                this.upcomingBeats = [...this.map.beats];
+            } catch (e) {
+                throw new Error(e);
+            }
         },
 
         startGame() {
