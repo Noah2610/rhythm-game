@@ -1,3 +1,14 @@
+export function queryExpect(
+    query: string,
+    rootEl: Element | undefined = undefined,
+): Element {
+    const el = (rootEl || document).querySelector(query);
+    if (!el) {
+        throw new Error(`Element with query ${query} not found.`);
+    }
+    return el;
+}
+
 /**
  * The `DomHelper` is a simple abstraction over `document.querySelector`,
  * with some functions for getting specific game elements, that we know
@@ -70,13 +81,7 @@ export interface DomHelper {
 }
 
 const domHelper: DomHelper = {
-    queryExpect(query, rootEl = undefined) {
-        const el = (rootEl || document).querySelector(query);
-        if (!el) {
-            throw new Error(`Element with query ${query} not found.`);
-        }
-        return el;
-    },
+    queryExpect,
 
     get game() {
         if (!this.cache.game) {
