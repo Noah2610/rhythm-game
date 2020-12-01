@@ -7,6 +7,38 @@ export function startEditor() {
     setupLoadSong();
     setupMapName(editorContext);
     setupBpm(editorContext);
+
+    document.onkeydown = onKeyDown;
+}
+
+function onKeyDown(event: KeyboardEvent) {
+    const key = event.key;
+    switch (key) {
+        case " ":
+            const activeElement = document.activeElement;
+            if (
+                !activeElement ||
+                !["INPUT", "BUTTON"].includes(activeElement.tagName)
+            ) {
+                const audioEl = document.querySelector(
+                    "#editor-song",
+                ) as HTMLAudioElement | null;
+                if (audioEl) {
+                    togglePaused(audioEl);
+                }
+            }
+            break;
+    }
+}
+
+function togglePaused(audioEl: HTMLAudioElement) {
+    if (audioEl.src) {
+        if (audioEl.paused) {
+            audioEl.play();
+        } else {
+            audioEl.pause();
+        }
+    }
 }
 
 function setupLoadSong() {
@@ -25,6 +57,9 @@ function setupLoadSong() {
 
 async function loadAudio(file: File): Promise<void> {
     return new Promise((resolve, reject) => {
+        const songNameEl = queryExpect("#editor-song-name") as HTMLDivElement;
+        songNameEl.innerText = `Loading: ${file.name}`;
+
         const fileReader = new FileReader();
 
         fileReader.onerror = () => {
@@ -37,11 +72,11 @@ async function loadAudio(file: File): Promise<void> {
                 reject(`Invalid audio dataURI src: ${audioSrc}`);
                 return;
             }
-            const audioEl = new Audio();
-            audioEl.id = "song";
+            const audioEl = queryExpect("#editor-song") as HTMLAudioElement;
             audioEl.classList.add("hidden");
             audioEl.src = audioSrc;
             queryExpect("#editor").appendChild(audioEl);
+            songNameEl.innerText = file.name;
             resolve();
         };
 
