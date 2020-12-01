@@ -13,28 +13,49 @@
                 Map Editor
             </h1>
 
-            <div class="menu">
-                <div class="menu-item">
-                    <label for="btn-load-song" class="btn text">
-                        Load Song
-                    </label>
-                    <input
-                        id="btn-load-song"
-                        name="btn-load-song"
-                        type="file"
-                        class="hidden" />
+            <div class="editor">
+                <div class="menu">
+                    <div class="menu-item">
+                        <label for="btn-load-song" class="btn text">
+                            Load Song
+                        </label>
+                        <input
+                            id="btn-load-song"
+                            name="btn-load-song"
+                            type="file"
+                            class="hidden" />
+                    </div>
+
+                    <div class="menu-item">
+                        <label
+                            for="editor-input-map-name"
+                            class="menu-label text">
+                            Map Name
+                        </label>
+                        <input
+                            id="editor-input-map-name"
+                            name="editor-input-map-name"
+                            class="input-text"
+                            type="text"
+                            placeholder="my-map" />
+                    </div>
+
+                    <div class="menu-item">
+                        <label
+                            for="editor-input-bpm"
+                            class="menu-label text">
+                            BPM
+                        </label>
+                        <input
+                            id="editor-input-bpm"
+                            name="editor-input-bpm"
+                            class="input-text"
+                            type="text"
+                            placeholder="120" />
+                    </div>
                 </div>
 
-                <div class="menu-item">
-                    <label for="editor-input-map-name" class="menu-label text">
-                        Map Name
-                    </label>
-                    <input
-                        id="editor-input-map-name"
-                        name="editor-input-map-name"
-                        class="input-text"
-                        type="text"
-                        placeholder="my-map" />
+                <div class="beat-editor">
                 </div>
             </div>
         </div>

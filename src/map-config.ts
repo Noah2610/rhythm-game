@@ -1,5 +1,10 @@
 export interface MapConfig {
     /**
+     * The displayed name of the map.
+     */
+    name: string;
+
+    /**
      * The song file name for this map.
      */
     song: string;

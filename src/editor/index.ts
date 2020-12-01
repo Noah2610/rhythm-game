@@ -1,4 +1,9 @@
+import { queryExpect } from "../game/dom-helper";
+import { newEditorContext, EditorContext } from "./editor-context";
+
 export function startEditor() {
+    const editorContext = newEditorContext();
+
     const loadSongEl = document.querySelector(
         "#editor #btn-load-song",
     ) as HTMLInputElement;
@@ -30,7 +35,7 @@ async function loadAudio(file: File): Promise<void> {
             audioEl.id = "song";
             audioEl.classList.add("hidden");
             audioEl.src = audioSrc;
-            document.querySelector("#editor")?.appendChild(audioEl);
+            queryExpect("#editor").appendChild(audioEl);
             resolve();
         };
 
