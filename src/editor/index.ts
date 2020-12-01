@@ -7,6 +7,7 @@ export function startEditor() {
     setupLoadSong();
     setupMapName(editorContext);
     setupBpm(editorContext);
+    setupExport(editorContext);
 
     document.onkeydown = onKeyDown;
 }
@@ -109,6 +110,18 @@ function setupBpm(editorContext: EditorContext) {
             } else {
                 target.classList.add("error");
             }
+        }
+    };
+}
+
+function setupExport(editorContext: EditorContext) {
+    const exportEl = queryExpect("#editor-input-export") as HTMLButtonElement;
+    const textareaEl = queryExpect("#editor-export-raw") as HTMLTextAreaElement;
+    exportEl.onclick = () => {
+        if (editorContext.map) {
+            const data = JSON.stringify(editorContext.map, undefined, "    ");
+            textareaEl.classList.remove("hidden");
+            textareaEl.innerText = data;
         }
     };
 }

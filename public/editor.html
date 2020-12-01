@@ -9,16 +9,12 @@
     </head>
     <body>
         <div id="editor">
-            <h1 class="heading text">
-                Map Editor
-            </h1>
+            <h1 class="heading text">Map Editor</h1>
 
             <div class="editor">
                 <div class="menu">
                     <div class="menu-item text">
-                        <h1 id="editor-map-name">
-                            Unnamed Map
-                        </h1>
+                        <h1 id="editor-map-name">Unnamed Map</h1>
                     </div>
 
                     <div class="menu-item">
@@ -30,13 +26,15 @@
                             id="btn-load-song"
                             name="btn-load-song"
                             type="file"
-                            class="hidden" />
+                            class="hidden"
+                        />
                     </div>
 
                     <div class="menu-item">
                         <label
                             for="editor-input-map-name"
-                            class="menu-label text">
+                            class="menu-label text"
+                        >
                             Map Name
                         </label>
                         <input
@@ -44,13 +42,12 @@
                             name="editor-input-map-name"
                             class="input-text"
                             type="text"
-                            placeholder="my-map" />
+                            placeholder="my-map"
+                        />
                     </div>
 
                     <div class="menu-item">
-                        <label
-                            for="editor-input-bpm"
-                            class="menu-label text">
+                        <label for="editor-input-bpm" class="menu-label text">
                             BPM
                         </label>
                         <input
@@ -58,14 +55,30 @@
                             name="editor-input-bpm"
                             class="input-text"
                             type="text"
-                            placeholder="120" />
+                            placeholder="120"
+                        />
+                    </div>
+
+                    <div class="menu-item">
+                        <!-- <label for="editor-input-export" class="menu-label text"> -->
+                        <!--     Save -->
+                        <!-- </label> -->
+                        <button id="editor-input-export" class="btn">
+                            Export
+                        </button>
+                        <textarea
+                            id="editor-export-raw"
+                            class="hidden"
+                            name=""
+                            cols="30"
+                            rows="10"
+                        ></textarea>
                     </div>
                 </div>
 
                 <audio id="editor-song" class="hidden"></audio>
 
-                <div class="beat-editor">
-                </div>
+                <div class="beat-editor"></div>
             </div>
         </div>
 
