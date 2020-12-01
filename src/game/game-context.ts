@@ -63,6 +63,6 @@ export function newGameContext(): GameContext {
         updateGameIntervalId: null,
 
         // This should be overwritten in `startGame`.
-        onKeyDown(event) {},
+        onKeyDown(_event) {},
     };
 }

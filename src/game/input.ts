@@ -6,12 +6,12 @@ export function onKeyDown(gameContext: GameContext, event: KeyboardEvent) {
         return;
     }
 
-    if (!gameContext) {
-        throw new Error("Game is not running, there is no GameContext.");
+    if (!gameContext.map) {
+        throw new Error("There is no MapConfig.");
     }
 
     const key = event.key.toUpperCase();
-    if (gameContext.config.layout.keys.includes(key)) {
+    if (gameContext.map.layout.keys.includes(key)) {
         triggerBeatTarget(gameContext, key);
     }
 }

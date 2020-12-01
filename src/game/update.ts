@@ -4,8 +4,10 @@ import dom from "./dom-helper";
 import { GameContext } from "./game-context";
 
 export function updateGame(gameContext: GameContext) {
-    if (!gameContext) {
-        throw new Error("GameContext has to exist in `udpateGame()` function.");
+    if (!gameContext.map) {
+        throw new Error(
+            "GameContext should have a MapConfig in `updateGame()` function",
+        );
     }
     if (!gameContext.upcomingBeats) {
         throw new Error(
@@ -21,7 +23,7 @@ export function updateGame(gameContext: GameContext) {
         const nextBeat = gameContext.upcomingBeats[i];
         const fallDuration =
             nextBeat.settings?.beatFallDuration ||
-            gameContext.config.beatSettings.beatFallDuration;
+            gameContext.map.beatSettings.beatFallDuration;
         if (time >= nextBeat.time - fallDuration) {
             spawnBeat(gameContext, nextBeat.key, nextBeat.settings);
             beatIndexesToRemove.push(i);
@@ -50,7 +52,10 @@ function spawnBeat(
     beat: string,
     settings?: Partial<BeatSettings>,
 ) {
-    if (!gameContext.config.layout.keys.includes(beat)) {
+    if (!gameContext.map) {
+        throw new Error("GameContext has no MapConfig.");
+    }
+    if (!gameContext.map.layout.keys.includes(beat)) {
         throw new Error(`Invalid beat key for layout: ${beat}`);
     }
 
