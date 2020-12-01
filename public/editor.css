@@ -48,3 +48,8 @@
     height: 640px;
     margin: 0 128px;
 }
+
+.error {
+    color: var(--color-error);
+    font-style: italic;
+}

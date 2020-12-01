@@ -6,6 +6,7 @@ export function startEditor() {
 
     setupLoadSong();
     setupMapName(editorContext);
+    setupBpm(editorContext);
 }
 
 function setupLoadSong() {
@@ -56,6 +57,23 @@ function setupMapName(editorContext: EditorContext) {
             editorContext.map.name = newName;
             const mapNameEl = queryExpect("#editor-map-name");
             mapNameEl.innerHTML = newName;
+        }
+    };
+}
+
+function setupBpm(editorContext: EditorContext) {
+    const inputEl = queryExpect("#editor-input-bpm") as HTMLInputElement;
+    inputEl.onchange = (event) => {
+        const target = event.target as HTMLInputElement | null;
+        const newBpm = target?.value;
+        if (target && newBpm) {
+            const newBpmI = parseInt(newBpm);
+            if (newBpmI) {
+                target.classList.remove("error");
+                editorContext.map.bpm = newBpmI;
+            } else {
+                target.classList.add("error");
+            }
         }
     };
 }
