@@ -4,6 +4,11 @@ import { newEditorContext, EditorContext } from "./editor-context";
 export function startEditor() {
     const editorContext = newEditorContext();
 
+    setupLoadSong();
+    setupMapName(editorContext);
+}
+
+function setupLoadSong() {
     const loadSongEl = document.querySelector(
         "#editor #btn-load-song",
     ) as HTMLInputElement;
@@ -41,4 +46,16 @@ async function loadAudio(file: File): Promise<void> {
 
         fileReader.readAsDataURL(file);
     });
+}
+
+function setupMapName(editorContext: EditorContext) {
+    const inputEl = queryExpect("#editor-input-map-name") as HTMLInputElement;
+    inputEl.onchange = (event) => {
+        const newName = (event.target as HTMLInputElement | null)?.value;
+        if (newName) {
+            editorContext.map.name = newName;
+            const mapNameEl = queryExpect("#editor-map-name");
+            mapNameEl.innerHTML = newName;
+        }
+    };
 }
