@@ -2,6 +2,11 @@
  * Styling for the /editor page.
  */
 
+.error {
+    color: var(--color-error);
+    font-style: italic;
+}
+
 .editor {
     display: flex;
     justify-content: space-between;
@@ -49,7 +54,18 @@
     margin: 0 128px;
 }
 
-.error {
-    color: var(--color-error);
-    font-style: italic;
+#editor-layout {
+    display: flex;
+    justify-content: space-evenly;
+    width: 256px;
+}
+
+.editor-layout-key {
+    border-radius: 50%;
+    box-shadow: 0 0 2px 2px var(--color-primary);
+    color: var(--color-fg);
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
 }

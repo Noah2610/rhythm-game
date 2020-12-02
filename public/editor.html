@@ -60,6 +60,20 @@
                     </div>
 
                     <div class="menu-item">
+                        <label for="editor-input-layout" class="menu-label text">
+                            Layout
+                        </label>
+                        <input
+                            id="editor-input-layout"
+                            name="editor-input-layout"
+                            class="input-text"
+                            type="text"
+                            placeholder="H J K L"
+                        />
+                        <div id="editor-layout"></div>
+                    </div>
+
+                    <div class="menu-item">
                         <!-- <label for="editor-input-export" class="menu-label text"> -->
                         <!--     Save -->
                         <!-- </label> -->
@@ -78,7 +92,8 @@
 
                 <audio id="editor-song" class="hidden"></audio>
 
-                <div class="beat-editor"></div>
+                <div id="beat-editor-wrapper" class="beat-editor">
+                </div>
             </div>
         </div>
 
