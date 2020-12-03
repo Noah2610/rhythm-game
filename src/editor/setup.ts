@@ -141,8 +141,8 @@ function setupSongAudioEvents(
         editorContext.songProgressUpdateInterval = null;
     }
     editorContext.songProgressUpdateInterval = setInterval(() => {
+        syncSongControlProgress(audioEl);
         if (!audioEl.paused) {
-            syncSongControlProgress(audioEl);
             syncBeatEditorScroll(editorContext, audioEl);
         }
     }, SONG_PROGRESS_UPDATE_INTERVAL_MS);
