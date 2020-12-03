@@ -15,7 +15,7 @@ export async function startGame(): Promise<GameContext> {
             return mapConfig;
         } catch (_e) {
             // TODO
-            // alert("Invalid MapConfig, using default map `dev.json`.");
+            alert("Invalid MapConfig, using default map `dev.json`.");
             return await fetchMap("dev.json");
         }
     })();
