@@ -15,7 +15,7 @@ export function setup(editorContext: EditorContext) {
     setupExport(editorContext);
     setupSongControl(editorContext);
 
-    document.onkeydown = onKeyDown;
+    document.onkeydown = (event) => onKeyDown(editorContext, event);
 }
 
 async function setupSelectSong(editorContext: EditorContext): Promise<void> {
