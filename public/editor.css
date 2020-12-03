@@ -32,7 +32,7 @@ select {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 32px 8px;
+    margin-left: 32px;
 
     width: 360px;
 }
@@ -83,6 +83,16 @@ select {
     position: relative;
     width: 480px;
     margin: 0 128px;
+}
+
+.editor-export-raw {
+    display: block;
+    width: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-size: 10px;
+    box-sizing: border-box;
+    resize: none;
 }
 
 .beat-editor {

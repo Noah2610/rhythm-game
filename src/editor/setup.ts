@@ -246,6 +246,9 @@ function setupExport(editorContext: EditorContext) {
     exportEl.onclick = () => {
         exportMapData(editorContext);
     };
+
+    const textareaEl = queryExpect("#editor-export-raw") as HTMLTextAreaElement;
+    textareaEl.onclick = () => copyTextAreaValueToClipboard(textareaEl);
 }
 
 function exportMapData(editorContext: EditorContext) {
@@ -254,15 +257,21 @@ function exportMapData(editorContext: EditorContext) {
             "#editor-export-raw",
         ) as HTMLTextAreaElement;
         collectBeatData(editorContext);
-        const data = JSON.stringify(editorContext.map, undefined, "    ");
+        const data = JSON.stringify(editorContext.map, null, 4);
         textareaEl.classList.remove("hidden");
-        textareaEl.innerText = data;
+        textareaEl.value = data;
+        copyTextAreaValueToClipboard(textareaEl);
     }
+}
+
+function copyTextAreaValueToClipboard(textareaEl: HTMLTextAreaElement) {
+    textareaEl.select();
+    document.execCommand("copy");
 }
 
 function collectBeatData(editorContext: EditorContext) {
     const beatEls = Array.from(
-        document.querySelectorAll("#beat-editor .beat-editor-beat"),
+        document.querySelectorAll("#beat-editor .beat-editor-beat.on"),
     );
     editorContext.map.beats = beatEls
         .map((beatEl) => {
