@@ -84,6 +84,7 @@ function setupBpm(editorContext: EditorContext) {
             if (newBpmI) {
                 target.classList.remove("error");
                 editorContext.map.bpm = newBpmI;
+                generateBeatEditor(editorContext);
             } else {
                 target.classList.add("error");
             }
@@ -103,9 +104,6 @@ function setupLayout(editorContext: EditorContext) {
                 .map((k) => k.toUpperCase())
                 .filter((key, idx, arr) => arr.indexOf(key) === idx);
             target.value = layoutKeys.join(" ");
-            editorContext.map.layout = {
-                keys: layoutKeys,
-            };
             const layoutEl = queryExpect("#editor-layout");
             layoutEl.innerHTML = "";
             for (const key of layoutKeys) {
@@ -114,6 +112,10 @@ function setupLayout(editorContext: EditorContext) {
                 keyEl.innerHTML = key;
                 layoutEl.appendChild(keyEl);
             }
+            editorContext.map.layout = {
+                keys: layoutKeys,
+            };
+            generateBeatEditor(editorContext);
         }
     };
 }

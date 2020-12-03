@@ -2,6 +2,10 @@
  * Styling for the /editor page.
  */
 
+#editor {
+    --beat-editor-beat-size: 32px;
+}
+
 .error {
     color: var(--color-error);
     font-style: italic;
@@ -48,12 +52,6 @@
         inset 0 0 4px 1px var(--color-primary);
 }
 
-.beat-editor {
-    width: 480px;
-    height: 640px;
-    margin: 0 128px;
-}
-
 #editor-layout {
     display: flex;
     justify-content: space-evenly;
@@ -68,4 +66,65 @@
     height: 24px;
     line-height: 24px;
     text-align: center;
+}
+
+.beat-editor {
+    position: relative;
+    width: 480px;
+    height: 640px;
+    margin: 0 128px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.beat-editor-beats-wrapper {
+    overflow-y: scroll;
+}
+
+.beat-editor-beats {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.beat-editor-beats-row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.beat-editor-beat {
+    display: block;
+    width: var(--beat-editor-beat-size);
+    height: var(--beat-editor-beat-size);
+    border: 1px solid var(--color-primary);
+    cursor: pointer;
+}
+
+.beat-editor-beat.on {
+    background-color: var(--color-primary);
+}
+
+.beat-editor-beat-nr {
+    display: block;
+    width: var(--beat-editor-beat-size);
+    height: var(--beat-editor-beat-size);
+    line-height: var(--beat-editor-beat-size);
+    font-size: 24px;
+    text-align: right;
+}
+
+.beat-editor-target-line {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.beat-editor-target {
+    display: block;
+    width: var(--beat-editor-beat-size);
+    height: var(--beat-editor-beat-size);
+    line-height: var(--beat-editor-beat-size);
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid var(--color-primary);
 }
