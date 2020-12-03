@@ -138,7 +138,7 @@ function createSongAudio(
     editorContext.songProgressUpdateInterval = setInterval(() => {
         const duration = audioEl.duration;
         const currentTime = audioEl.currentTime;
-        const percent = Math.round((currentTime / duration) * 100);
+        const percent = (currentTime / duration) * 100;
         progressEl.style.width = `${percent}%`;
     }, SONG_PROGRESS_UPDATE_INTERVAL_MS);
 
@@ -217,10 +217,23 @@ function setupExport(editorContext: EditorContext) {
 
 function setupSongControl(editorContext: EditorContext) {
     const songEl = queryExpect("#editor-song") as HTMLAudioElement;
+
     const playBtnEl = queryExpect(
         "#editor-song-control-play-btn",
     ) as HTMLButtonElement;
     playBtnEl.onclick = () => {
         togglePaused(songEl);
+    };
+
+    const progressWrapperEl = queryExpect(
+        "#editor-song-control-progress-wrapper",
+    ) as HTMLDivElement;
+    progressWrapperEl.onclick = (event) => {
+        if (songEl.src && songEl.duration) {
+            const elWidth = progressWrapperEl.getBoundingClientRect().width;
+            const percent = event.offsetX / elWidth;
+            const newTime = songEl.duration * percent;
+            songEl.currentTime = newTime;
+        }
     };
 }
