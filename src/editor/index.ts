@@ -39,16 +39,17 @@ export function generateBeatEditor(editorContext: EditorContext) {
 
         const bps = 60.0 / editorContext.map.bpm;
         const totalBeats = Math.floor(songEl.duration / bps);
-        for (let i = totalBeats; i > 0; i--) {
+        for (let beatIndex = totalBeats; beatIndex > 0; beatIndex--) {
             const rowEl = document.createElement("div");
             rowEl.classList.add("beat-editor-beats-row");
             const beatNrEl = document.createElement("div");
             beatNrEl.classList.add("beat-editor-beat-nr");
-            beatNrEl.innerHTML = i.toString();
+            beatNrEl.innerHTML = beatIndex.toString();
             rowEl.appendChild(beatNrEl);
             for (const key of editorContext.map.layout.keys) {
                 const beatEl = document.createElement("div");
                 beatEl.classList.add("beat-editor-beat");
+                beatEl.setAttribute("data-beat", beatIndex.toString());
                 beatEl.setAttribute("data-key", key);
                 beatEl.onclick = (event) => {
                     const element = event.target as HTMLDivElement | null;

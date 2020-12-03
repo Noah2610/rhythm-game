@@ -1,5 +1,6 @@
 import { generateBeatEditor } from ".";
 import { queryExpect } from "../game/dom-helper";
+import { BeatSpawnConfig } from "../map-config";
 import { EditorContext } from "./editor-context";
 import { onKeyDown, togglePaused } from "./input";
 
@@ -242,14 +243,41 @@ function setupLayout(editorContext: EditorContext) {
 
 function setupExport(editorContext: EditorContext) {
     const exportEl = queryExpect("#editor-input-export") as HTMLButtonElement;
-    const textareaEl = queryExpect("#editor-export-raw") as HTMLTextAreaElement;
     exportEl.onclick = () => {
-        if (editorContext.map) {
-            const data = JSON.stringify(editorContext.map, undefined, "    ");
-            textareaEl.classList.remove("hidden");
-            textareaEl.innerText = data;
-        }
+        exportMapData(editorContext);
     };
+}
+
+function exportMapData(editorContext: EditorContext) {
+    if (editorContext.map) {
+        const textareaEl = queryExpect(
+            "#editor-export-raw",
+        ) as HTMLTextAreaElement;
+        collectBeatData(editorContext);
+        const data = JSON.stringify(editorContext.map, undefined, "    ");
+        textareaEl.classList.remove("hidden");
+        textareaEl.innerText = data;
+    }
+}
+
+function collectBeatData(editorContext: EditorContext) {
+    const beatEls = Array.from(
+        document.querySelectorAll("#beat-editor .beat-editor-beat"),
+    );
+    editorContext.map.beats = beatEls
+        .map((beatEl) => {
+            const beat = parseInt(beatEl.getAttribute("data-beat") || "");
+            const key = beatEl.getAttribute("data-key");
+            if (beat && key) {
+                return {
+                    beat,
+                    key,
+                };
+            } else {
+                return null;
+            }
+        })
+        .filter((beat) => !!beat) as BeatSpawnConfig[];
 }
 
 function setupSongControl(editorContext: EditorContext) {
