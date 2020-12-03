@@ -8,7 +8,12 @@ export interface EditorContext {
 
 export function newEditorContext(): EditorContext {
     return {
-        map: {},
+        map: {
+            name: "Unnamed Map",
+            beatSettings: {
+                beatFallDuration: 5000,
+            },
+        },
         songProgressUpdateInterval: null,
     };
 }
