@@ -18,7 +18,7 @@ export function onKeyDown(event: KeyboardEvent) {
     }
 }
 
-function togglePaused(audioEl: HTMLAudioElement) {
+export function togglePaused(audioEl: HTMLAudioElement) {
     if (audioEl.src) {
         if (audioEl.paused) {
             audioEl.play();

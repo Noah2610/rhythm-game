@@ -1,7 +1,9 @@
 import { generateBeatEditor } from ".";
 import { queryExpect } from "../game/dom-helper";
 import { EditorContext } from "./editor-context";
-import { onKeyDown } from "./input";
+import { onKeyDown, togglePaused } from "./input";
+
+const SONG_PROGRESS_UPDATE_INTERVAL_MS = 10;
 
 export function setup(editorContext: EditorContext) {
     // setupLoadSongFile(editorContext);
@@ -10,6 +12,7 @@ export function setup(editorContext: EditorContext) {
     setupBpm(editorContext);
     setupLayout(editorContext);
     setupExport(editorContext);
+    setupSongControl(editorContext);
 
     document.onkeydown = onKeyDown;
 }
@@ -45,7 +48,10 @@ async function setupSelectSong(editorContext: EditorContext): Promise<void> {
         if (target) {
             const selectedSong = target.value;
             if (selectedSong !== "DEFAULT") {
-                const audioEl = createSongAudio(`/songs/${selectedSong}`);
+                const audioEl = createSongAudio(
+                    editorContext,
+                    `/songs/${selectedSong}`,
+                );
                 audioEl.onloadedmetadata = () => {
                     editorContext.map.song = selectedSong;
                     generateBeatEditor(editorContext);
@@ -93,7 +99,7 @@ async function loadAudioFile(
                 reject(`Invalid audio dataURI src: ${audioSrc}`);
                 return;
             }
-            const audioEl = createSongAudio(audioSrc);
+            const audioEl = createSongAudio(editorContext, audioSrc);
             audioEl.onloadedmetadata = () => {
                 songNameEl.innerText = file.name;
                 editorContext.map.song = file.name;
@@ -105,10 +111,37 @@ async function loadAudioFile(
     });
 }
 
-function createSongAudio(src: string): HTMLAudioElement {
+function createSongAudio(
+    editorContext: EditorContext,
+    src: string,
+): HTMLAudioElement {
     const audioEl = queryExpect("#editor-song") as HTMLAudioElement;
     audioEl.classList.add("hidden");
     audioEl.src = src;
+
+    const playBtnEl = queryExpect(
+        "#editor-song-control-play-btn",
+    ) as HTMLButtonElement;
+    audioEl.onplay = () => {
+        playBtnEl.innerHTML = ">";
+    };
+    audioEl.onpause = () => {
+        playBtnEl.innerHTML = "||";
+    };
+
+    if (editorContext.songProgressUpdateInterval) {
+        editorContext.songProgressUpdateInterval = null;
+    }
+    const progressEl = queryExpect(
+        "#editor-song-control-progress",
+    ) as HTMLDivElement;
+    editorContext.songProgressUpdateInterval = setInterval(() => {
+        const duration = audioEl.duration;
+        const currentTime = audioEl.currentTime;
+        const percent = Math.round((currentTime / duration) * 100);
+        progressEl.style.width = `${percent}%`;
+    }, SONG_PROGRESS_UPDATE_INTERVAL_MS);
+
     return audioEl;
 }
 
@@ -179,5 +212,15 @@ function setupExport(editorContext: EditorContext) {
             textareaEl.classList.remove("hidden");
             textareaEl.innerText = data;
         }
+    };
+}
+
+function setupSongControl(editorContext: EditorContext) {
+    const songEl = queryExpect("#editor-song") as HTMLAudioElement;
+    const playBtnEl = queryExpect(
+        "#editor-song-control-play-btn",
+    ) as HTMLButtonElement;
+    playBtnEl.onclick = () => {
+        togglePaused(songEl);
     };
 }

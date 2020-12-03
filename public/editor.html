@@ -106,11 +106,28 @@
 
                 <audio id="editor-song" class="hidden"></audio>
 
-                <div id="beat-editor" class="beat-editor">
-                    <div class="beat-editor-beats-wrapper">
-                        <div class="beat-editor-beats"></div>
+                <div class="stack beat-editor-wrapper">
+                    <div id="beat-editor" class="beat-editor">
+                        <div class="beat-editor-beats-wrapper">
+                            <div class="beat-editor-beats"></div>
+                        </div>
+                        <div class="beat-editor-target-line"></div>
                     </div>
-                    <div class="beat-editor-target-line"></div>
+
+                    <div class="editor-song-control">
+                        <button
+                            id="editor-song-control-play-btn"
+                            class="btn editor-song-control-play-btn"
+                        >
+                            ||
+                        </button>
+                        <div class="editor-song-control-progress-wrapper">
+                            <div
+                                id="editor-song-control-progress"
+                                class="editor-song-control-progress"
+                            ></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
