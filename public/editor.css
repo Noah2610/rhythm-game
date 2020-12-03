@@ -110,10 +110,11 @@ select {
 
 .beat-editor-beat {
     display: block;
+    cursor: pointer;
     width: var(--beat-editor-beat-size);
     height: var(--beat-editor-beat-size);
     border: 1px solid var(--color-primary);
-    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .beat-editor-beat.on {
@@ -142,6 +143,7 @@ select {
     font-size: 24px;
     text-align: center;
     border: 1px solid var(--color-primary);
+    box-sizing: border-box;
 }
 
 .editor-song-control {

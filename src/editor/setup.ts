@@ -118,7 +118,14 @@ function createSongAudio(
     const audioEl = queryExpect("#editor-song") as HTMLAudioElement;
     audioEl.classList.add("hidden");
     audioEl.src = src;
+    setupSongAudioEvents(editorContext, audioEl);
+    return audioEl;
+}
 
+function setupSongAudioEvents(
+    editorContext: EditorContext,
+    audioEl: HTMLAudioElement,
+) {
     const playBtnEl = queryExpect(
         "#editor-song-control-play-btn",
     ) as HTMLButtonElement;
@@ -132,17 +139,47 @@ function createSongAudio(
     if (editorContext.songProgressUpdateInterval) {
         editorContext.songProgressUpdateInterval = null;
     }
-    const progressEl = queryExpect(
-        "#editor-song-control-progress",
-    ) as HTMLDivElement;
     editorContext.songProgressUpdateInterval = setInterval(() => {
+        if (!audioEl.paused) {
+            syncSongControlProgress(audioEl);
+            syncBeatEditorScroll(editorContext, audioEl);
+        }
+    }, SONG_PROGRESS_UPDATE_INTERVAL_MS);
+}
+
+function syncSongControlProgress(audioEl: HTMLAudioElement) {
+    if (audioEl.src && audioEl.duration) {
+        const progressEl = queryExpect(
+            "#editor-song-control-progress",
+        ) as HTMLDivElement;
         const duration = audioEl.duration;
         const currentTime = audioEl.currentTime;
         const percent = (currentTime / duration) * 100;
         progressEl.style.width = `${percent}%`;
-    }, SONG_PROGRESS_UPDATE_INTERVAL_MS);
+    }
+}
 
-    return audioEl;
+function syncBeatEditorScroll(
+    editorContext: EditorContext,
+    audioEl: HTMLAudioElement,
+) {
+    if (editorContext.map.bpm && audioEl.src && audioEl.duration) {
+        const beatSize = parseInt(
+            getComputedStyle(queryExpect("#editor")).getPropertyValue(
+                "--beat-editor-beat-size",
+            ),
+        );
+        const bps = 60.0 / editorContext.map.bpm;
+        const beatIndex = Math.floor(audioEl.currentTime / bps);
+        const offset = beatIndex * beatSize;
+        const beatsWrapperEl = queryExpect(
+            "#beat-editor .beat-editor-beats-wrapper",
+        ) as HTMLDivElement;
+        const beatsWrapperHeight = beatsWrapperEl.clientHeight;
+        const beatsHeight = beatsWrapperEl.scrollHeight;
+        const newY = beatsHeight - beatsWrapperHeight - offset;
+        beatsWrapperEl.scrollTo(0, newY);
+    }
 }
 
 function setupMapName(editorContext: EditorContext) {
