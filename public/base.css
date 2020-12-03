@@ -23,12 +23,16 @@ body {
     padding: 0;
 }
 
+select {
+    cursor: pointer;
+}
+
 /**
  * Hides the element.
  */
 .hidden {
     opacity: 0;
-    display: none;
+    display: none !important;
 }
 
 /**
@@ -49,6 +53,27 @@ body {
         display 0.5s step-start;
 }
 
+/**
+ * Stack elements on top of each other.
+ * Simply a column flex box.
+ */
+.stack {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+/**
+ * For error messages.
+ */
+.error {
+    color: var(--color-error);
+    font-style: italic;
+}
+
+/**
+ * Button styling.
+ */
 .btn {
     display: inline-block;
     background-color: var(--color-bg);
@@ -71,16 +96,6 @@ body {
 }
 
 /**
- * Absolutely positions the element in the center of the screen.
- */
-.float-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/**
  * Fancy text styling.
  */
 .text {
@@ -94,4 +109,16 @@ body {
     display: block;
     text-align: center;
     font-size: 32px;
+}
+
+/**
+ * For `textarea` elements which contain a stringified `MapConfig`.
+ */
+.map-config {
+    display: block;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-size: 10px;
+    box-sizing: border-box;
+    resize: none;
 }

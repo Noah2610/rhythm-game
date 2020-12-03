@@ -1,0 +1,49 @@
+/**
+ * Menu styling.
+ * Styling for inputs, labels, errors, etc.
+ */
+
+/**
+ * Vertically stacked menu wrapper.
+ */
+.menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/**
+ * Menu item inside a `.menu` element,
+ */
+.menu-item {
+    display: block;
+}
+
+.menu-item:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+/**
+ * Labels for `.menu-item`s.
+ */
+.menu-label {
+    display: block;
+    font-size: 20px;
+    padding: 8px;
+}
+
+/**
+ * Styling for `<input type="text" />` elements.
+ */
+.input-text {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-size: 18px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    box-shadow:
+        0 0 4px 1px var(--color-primary),
+        inset 0 0 4px 1px var(--color-primary);
+}

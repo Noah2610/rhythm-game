@@ -1,7 +1,7 @@
 import { BeatSpawnConfig, MapConfig } from "../map-config";
 import dom from "./dom-helper";
 import { onKeyDown } from "./input";
-import { loadMap } from "./map-loader";
+import { loadMap, loadMapConfig } from "./map-loader";
 import { updateGame } from "./update";
 
 export interface GameContext {
@@ -13,6 +13,8 @@ export interface GameContext {
     beatIndex: number;
 
     loadMap: (mapName: string) => Promise<void>;
+    loadMapConfig: (mapConfig: MapConfig) => void;
+    setMapConfig: (mapConfig: MapConfig) => void;
     startGame: () => void;
     stopGame: () => void;
 
@@ -27,13 +29,22 @@ export function newGameContext(): GameContext {
         upcomingBeats: [],
         beatIndex: 0,
 
+        loadMapConfig(mapConfig) {
+            loadMapConfig(mapConfig);
+            this.setMapConfig(mapConfig);
+        },
+
         async loadMap(mapName) {
             try {
-                this.map = await loadMap(mapName);
-                this.upcomingBeats = [...this.map.beats];
+                this.setMapConfig(await loadMap(mapName));
             } catch (e) {
                 throw new Error(e);
             }
+        },
+
+        setMapConfig(mapConfig) {
+            this.map = mapConfig;
+            this.upcomingBeats = [...this.map.beats];
         },
 
         startGame() {

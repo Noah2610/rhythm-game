@@ -42,6 +42,27 @@
 }
 
 /**
+ * Before the game starts.
+ * Menu contains the "start-game" button.
+ */
+.start-menu {
+    justify-content: flex-end;
+    width: 360px;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.start-menu > .menu-item {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.start-menu .map-config {
+    width: 360px;
+}
+
+/**
  * The row where beat-targets spawn.
  * Should have the same amount of children `.beat-spawn` elements
  * as the `.beat-target-line` has.

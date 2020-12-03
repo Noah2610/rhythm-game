@@ -11,7 +11,7 @@ function main() {
             break;
         case "/editor":
         case "/editor.html":
-            setupEditor();
+            startEditor();
             break;
     }
 
@@ -19,18 +19,16 @@ function main() {
 }
 
 function setupStartButton() {
-    const startBtnEl = document.querySelector("#btn-start");
-    startBtnEl?.addEventListener("click", () => {
-        const parentEl = startBtnEl.parentElement;
-        if (parentEl && !parentEl.classList.contains("hidden")) {
-            parentEl.classList.add("hidden");
+    const menuEl = document.querySelector("#start-menu") as HTMLDivElement;
+    const startBtnEl = document.querySelector(
+        "#btn-start",
+    ) as HTMLButtonElement;
+    startBtnEl.onclick = () => {
+        if (!menuEl.classList.contains("hidden")) {
+            menuEl.classList.add("hidden");
             startGame();
         }
-    });
-}
-
-function setupEditor() {
-    startEditor();
+    };
 }
 
 window.onload = main;

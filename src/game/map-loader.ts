@@ -1,23 +1,28 @@
 import { LayoutConfig, MapConfig } from "../map-config";
 import dom from "./dom-helper";
 
+export async function fetchMap(mapName: string): Promise<MapConfig> {
+    return await fetch(`/maps/${mapName}`)
+        .then((response) => response.json())
+        .catch(console.error);
+}
+
 /**
  * Loads a map config file with the given file name.
  * File name should end in `.json`.
  */
 export async function loadMap(mapName: string): Promise<MapConfig> {
+    const mapConfig = await fetchMap(mapName);
+    loadMapConfig(mapConfig);
+    return mapConfig;
+}
+
+export function loadMapConfig(mapConfig: MapConfig) {
     resetGame();
-
-    const mapConfig: MapConfig = await fetch(`/maps/${mapName}`)
-        .then((response) => response.json())
-        .catch(console.error);
-
     loadSong(mapConfig.song);
     createBeatTargets(mapConfig.layout);
     createBeatSpawns(mapConfig.layout);
     setCssVariables(mapConfig);
-
-    return mapConfig;
 }
 
 function setCssVariables(config: MapConfig) {

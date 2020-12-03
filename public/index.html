@@ -4,13 +4,29 @@
         <meta charset="UTF-8" />
         <title>Rhythm Game</title>
         <link rel="stylesheet" href="/base.css" />
+        <link rel="stylesheet" href="/menu.css" />
         <link rel="stylesheet" href="/game.css" />
     </head>
     <body>
-        <div class="float-center hide-anim">
-            <button id="btn-start" class="btn" autofocus>
-                START GAME
-            </button>
+        <div id="start-menu" class="hide-anim menu start-menu">
+            <div class="menu-item">
+                <label for="map-config-raw" class="menu-label text">
+                    Map Config
+                </label>
+                <textarea
+                    id="map-config-raw"
+                    name="map-config-raw"
+                    class="map-config"
+                    cols="30"
+                    rows="10"
+                    placeholder="{
+    // Map Config ...
+}"
+                ></textarea>
+            </div>
+            <div class="menu-item">
+                <button id="btn-start" class="btn" autofocus>START GAME</button>
+            </div>
         </div>
 
         <div id="game" class="hidden show-anim">
