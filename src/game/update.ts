@@ -127,7 +127,9 @@ function checkBeatHit(key: string) {
     if (!beatSpawnEl) {
         throw new Error(`Beat spawn element doesn't exist for key: ${key}`);
     }
-    const nearestBeatEl = beatSpawnEl.firstChild as HTMLElement | null;
+    const nearestBeatEl = beatSpawnEl.querySelector(
+        ".beat:not(.beat--despawn):not(.beat--despawn-success)",
+    ) as HTMLElement | null;
     if (nearestBeatEl) {
         const beatTargetEl = dom.getBeatTarget(key);
         if (!beatTargetEl) {
