@@ -37,7 +37,7 @@ export function generateBeatEditor(editorContext: EditorContext) {
             targetLineEl.appendChild(targetEl);
         }
 
-        const bps = editorContext.map.bpm / 60.0;
+        const bps = 60.0 / editorContext.map.bpm;
         const totalBeats = Math.floor(songEl.duration / bps);
         for (let i = totalBeats; i > 0; i--) {
             const rowEl = document.createElement("div");
