@@ -166,9 +166,9 @@ function syncBeatEditorScroll(
 ) {
     if (editorContext.map.bpm && audioEl.src && audioEl.duration) {
         const beatSize = parseInt(
-            getComputedStyle(queryExpect("#editor")).getPropertyValue(
-                "--beat-editor-beat-size",
-            ),
+            window
+                .getComputedStyle(queryExpect("#editor"))
+                .getPropertyValue("--beat-editor-beat-size"),
         );
         const bps = 60.0 / editorContext.map.bpm;
         const beatIndex = Math.floor(audioEl.currentTime / bps);

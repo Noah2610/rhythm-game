@@ -27,7 +27,7 @@ export function generateBeatEditor(editorContext: EditorContext) {
 
         const targetNrEl = document.createElement("div");
         targetNrEl.classList.add("beat-editor-beat-nr");
-        targetNrEl.innerHTML = "0";
+        targetNrEl.innerHTML = "";
         targetLineEl.appendChild(targetNrEl);
 
         for (const key of editorContext.map.layout.keys) {
@@ -39,12 +39,12 @@ export function generateBeatEditor(editorContext: EditorContext) {
 
         const bps = 60.0 / editorContext.map.bpm;
         const totalBeats = Math.floor(songEl.duration / bps);
-        for (let beatIndex = totalBeats; beatIndex > 0; beatIndex--) {
+        for (let beatIndex = totalBeats - 1; beatIndex >= 0; beatIndex--) {
             const rowEl = document.createElement("div");
             rowEl.classList.add("beat-editor-beats-row");
             const beatNrEl = document.createElement("div");
             beatNrEl.classList.add("beat-editor-beat-nr");
-            beatNrEl.innerHTML = beatIndex.toString();
+            beatNrEl.innerHTML = (beatIndex + 1).toString();
             rowEl.appendChild(beatNrEl);
             for (const key of editorContext.map.layout.keys) {
                 const beatEl = document.createElement("div");
@@ -62,16 +62,9 @@ export function generateBeatEditor(editorContext: EditorContext) {
             beatsEl.appendChild(rowEl);
         }
 
-        const beatsParentEl = beatsEl.parentElement;
-        if (beatsParentEl) {
-            const beatSize = parseInt(
-                window
-                    .getComputedStyle(queryExpect("#editor"))
-                    .getPropertyValue("--beat-editor-beat-size"),
-            );
-            if (beatSize) {
-                beatsParentEl.scrollTo(0, totalBeats * beatSize);
-            }
+        const beatsWrapperEl = beatsEl.parentElement;
+        if (beatsWrapperEl) {
+            beatsWrapperEl.scrollTo(0, beatsWrapperEl.scrollHeight);
         }
     }
 }
