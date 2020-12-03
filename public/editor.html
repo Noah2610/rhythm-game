@@ -18,16 +18,27 @@
                     </div>
 
                     <div class="menu-item">
-                        <label for="btn-load-song" class="btn text">
-                            Load Song
+                        <!-- <label for="btn-load-song-file" class="btn text"> -->
+                        <!--     Load Song -->
+                        <!-- </label> -->
+                        <!-- <div id="editor-song-name" class="text"></div> -->
+                        <!-- <input -->
+                        <!--     id="btn-load-song-file" -->
+                        <!--     name="btn-load-song-file" -->
+                        <!--     type="file" -->
+                        <!--     class="hidden" -->
+                        <!-- /> -->
+                        <label
+                            for="editor-input-select-song"
+                            class="menu-label text"
+                        >
+                            Select Song
                         </label>
-                        <div id="editor-song-name" class="text"></div>
-                        <input
-                            id="btn-load-song"
-                            name="btn-load-song"
-                            type="file"
-                            class="hidden"
-                        />
+                        <select
+                            id="editor-input-select-song"
+                            name="editor-input-select-song"
+                            class="input-text"
+                        ></select>
                     </div>
 
                     <div class="menu-item">
@@ -60,7 +71,10 @@
                     </div>
 
                     <div class="menu-item">
-                        <label for="editor-input-layout" class="menu-label text">
+                        <label
+                            for="editor-input-layout"
+                            class="menu-label text"
+                        >
                             Layout
                         </label>
                         <input

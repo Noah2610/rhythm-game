@@ -4,7 +4,8 @@ import { EditorContext } from "./editor-context";
 import { onKeyDown } from "./input";
 
 export function setup(editorContext: EditorContext) {
-    setupLoadSong(editorContext);
+    // setupLoadSongFile(editorContext);
+    setupSelectSong(editorContext);
     setupMapName(editorContext);
     setupBpm(editorContext);
     setupLayout(editorContext);
@@ -13,23 +14,66 @@ export function setup(editorContext: EditorContext) {
     document.onkeydown = onKeyDown;
 }
 
-function setupLoadSong(editorContext: EditorContext) {
+async function setupSelectSong(editorContext: EditorContext): Promise<void> {
+    interface SongsData {
+        songs: string[];
+    }
+
+    const songsData: SongsData = await fetch("/songs/index.json")
+        .then((response) => response.json())
+        .catch(console.error);
+
+    const selectEl = queryExpect(
+        "#editor-input-select-song",
+    ) as HTMLSelectElement;
+    selectEl.innerHTML = "";
+
+    const defaultOptionEl = document.createElement("option");
+    defaultOptionEl.value = "DEFAULT";
+    defaultOptionEl.innerHTML = "Select Song ...";
+    selectEl.appendChild(defaultOptionEl);
+
+    for (const song of songsData.songs) {
+        const optionEl = document.createElement("option");
+        optionEl.value = song;
+        optionEl.innerHTML = song;
+        selectEl.appendChild(optionEl);
+    }
+
+    selectEl.onchange = (event) => {
+        const target = event.target as HTMLSelectElement | null;
+        if (target) {
+            const selectedSong = target.value;
+            if (selectedSong !== "DEFAULT") {
+                const audioEl = createSongAudio(`/songs/${selectedSong}`);
+                audioEl.onloadedmetadata = () => {
+                    editorContext.map.song = selectedSong;
+                    generateBeatEditor(editorContext);
+                };
+            } else {
+                editorContext.map.song = undefined;
+            }
+        }
+    };
+}
+
+function setupLoadSongFile(editorContext: EditorContext) {
     const loadSongEl = document.querySelector(
-        "#editor #btn-load-song",
+        "#editor #btn-load-song-file",
     ) as HTMLInputElement;
     if (loadSongEl) {
-        loadSongEl.addEventListener("change", () => {
+        loadSongEl.onchange = () => {
             const file = (loadSongEl.files || [])[0];
             if (file) {
-                loadAudio(editorContext, file).then(() =>
+                loadAudioFile(editorContext, file).then(() =>
                     generateBeatEditor(editorContext),
                 );
             }
-        });
+        };
     }
 }
 
-async function loadAudio(
+async function loadAudioFile(
     editorContext: EditorContext,
     file: File,
 ): Promise<void> {
@@ -49,17 +93,23 @@ async function loadAudio(
                 reject(`Invalid audio dataURI src: ${audioSrc}`);
                 return;
             }
-            const audioEl = queryExpect("#editor-song") as HTMLAudioElement;
-            audioEl.classList.add("hidden");
-            audioEl.src = audioSrc;
-            queryExpect("#editor").appendChild(audioEl);
-            songNameEl.innerText = file.name;
-            editorContext.map.song = file.name;
-            resolve();
+            const audioEl = createSongAudio(audioSrc);
+            audioEl.onloadedmetadata = () => {
+                songNameEl.innerText = file.name;
+                editorContext.map.song = file.name;
+                resolve();
+            };
         };
 
         fileReader.readAsDataURL(file);
     });
+}
+
+function createSongAudio(src: string): HTMLAudioElement {
+    const audioEl = queryExpect("#editor-song") as HTMLAudioElement;
+    audioEl.classList.add("hidden");
+    audioEl.src = src;
+    return audioEl;
 }
 
 function setupMapName(editorContext: EditorContext) {

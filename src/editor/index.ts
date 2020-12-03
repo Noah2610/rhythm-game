@@ -11,6 +11,7 @@ export function generateBeatEditor(editorContext: EditorContext) {
     const songEl = document.querySelector(
         "#editor-song",
     ) as HTMLAudioElement | null;
+
     if (
         editorContext.map.bpm &&
         editorContext.map.layout &&

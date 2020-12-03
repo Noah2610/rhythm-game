@@ -6,6 +6,10 @@
     --beat-editor-beat-size: 32px;
 }
 
+select {
+    cursor: pointer;
+}
+
 .error {
     color: var(--color-error);
     font-style: italic;
